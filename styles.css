@@ -1,0 +1,99 @@
+.gutter {
+    background-color: #eee;
+
+    background-repeat: no-repeat;
+    background-position: 50%;
+}
+
+.gutter.gutter-horizontal {
+  background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAUAAAAeCAYAAADkftS9AAAAIklEQVQoU2M4c+bMfxAGAgYYmwGrIIiDjrELjpo5aiZeMwF+yNnOs5KSvgAAAABJRU5ErkJggg==');
+  cursor: col-resize;
+}
+
+.split {
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+.split,
+.gutter.gutter-horizontal {
+    float: left;
+    height: 90vh;
+}
+
+#left, #right {
+  margin-top: 20px;
+  padding-top: 20px;
+  background-color : #E8615F;
+  min-height: 400px;
+
+  border-radius: 3px;
+}
+
+#left {
+  width: 49%;
+  float: left;
+}
+
+#right {
+  width: 49%;
+  float: right;
+}
+
+.card {
+  background-color: #fff;
+  margin: 7px;
+  border-radius: 5px;
+
+  box-shadow: 3px 3px 2px rgba(0, 0, 0, 0.2);
+}
+
+.card:hover {
+  cursor: pointer;
+}
+
+.card-header {
+  padding: 5px 0 0 5px;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+}
+
+.card-body {
+  padding: 10px 0 10px 5px;
+}
+
+/* Style the tab */
+.tab {
+  overflow: hidden;
+  border: 1px solid #ccc;
+  background-color: #f1f1f1;
+}
+
+/* Style the buttons that are used to open the tab content */
+.tab button {
+  background-color: inherit;
+  float: left;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  padding: 14px 16px;
+  transition: 0.3s;
+}
+
+/* Change background color of buttons on hover */
+.tab button:hover {
+  background-color: #ddd;
+}
+
+/* Create an active/current tablink class */
+.tab button.active {
+  background-color: #ccc;
+}
+
+/* Style the tab content */
+.tabcontent {
+  display: none;
+  padding: 6px 12px;
+  border: 1px solid #ccc;
+  border-top: none;
+}

@@ -1,0 +1,62 @@
+<!doctype html>
+
+<html>
+
+<head>
+  <link rel="stylesheet" type="text/css" href="styles.css">
+  <!-- <link rel="stylesheet" type="text/css" href="node_modules/dragula/dist/dragula.css"> -->
+</head>
+
+<body>
+
+  <div class="tab">
+    <button class="" onclick="">Henry</button>
+    <button class="" onclick="">Now editing:</button>
+    <button class="" onclick="">New Newsletter</button>
+    <button class="" onclick="">Open Newsletter JSON</button>
+    <button class="" onclick="">Export Newsletter JSON</button>
+   </div>
+
+  <div>
+    <div class="split" id="one">
+      <button class="" onclick="">Change Date</button>
+      <button class="" onclick="">Email Intro</button>
+      <button class="" onclick="">Email Preview</button>
+      <button class="" onclick="">Errata</button>
+
+      <div id="articles-list"></div>
+
+      <button class="" onclick="">Add Article</button>
+    </div>
+
+    <div class="split" id="two">
+      Article title:<br>
+      <input type="text" id="title"></input><br>
+      What is the link of the article:<br>
+      <input type="text" id="article-link"></input><br>
+      Byline (FirstName LastName ’19, Staff Writer):<br>
+      <input type="text" id="byline"></input><br>
+      Content preview:<br>
+      <textarea id="content-preview"></textarea><br>
+      If there is a thumbnail image, give it a caption. Otherwise, leave it blank:<br>
+      <input type="text" id="thumbnail-caption"></input><br>
+      If there is a thumbnail image, give it a credit or an attribution. Otherwise, leave it blank:<br>
+      <input type="text" id="thumbnail-credit"></input><br>
+      If there is a thumbnail image, put the link on the next line. Otherwise, leave it blank:<br>
+      <input type="text"id="thumbnail-link"></input><br>
+      placeholder for image preview below here<br>
+      <button class="" onclick="">Delete Article</button><br>
+      Article ID: <span id="article-id"></span>
+    </div>
+
+    <div class="split" id="three">
+      code preview will go here
+    </div>
+  </div>
+
+  <script src="https://unpkg.com/split.js/dist/split.min.js"></script>
+  <script src="templates.js"></script>
+  <script src="newsletter.js"></script>
+  <script src="main.js"></script>
+</body>
+</html>
