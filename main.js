@@ -1,13 +1,14 @@
 Split(['#one', '#two', '#three']);
 
+// just for testing right now
 var news = new Newsletter();
 var art1 = new Article();
 var art2 = new Article();
 var art3 = new Article();
 
-art1.title = "1";
-art2.title = "2";
-art3.title = "3";
+art1.title = "article 1";
+art2.title = "article 2";
+art3.title = "article 3";
 
 news.add(art1);
 news.add(art2);
@@ -58,6 +59,7 @@ function fillFields() {
   document.getElementById("article-id").innerHTML = theArticleId;
 }
 
+// update newsletter fields
 function updateNewsletter() {
   articleId = findArticleById(theArticleId);
   theNewsletter.articles[articleId].title = document.getElementById("title").value;
@@ -69,7 +71,6 @@ function updateNewsletter() {
   theNewsletter.articles[articleId].thumbnailCredit = document.getElementById("thumbnail-credit").value;
   fillAll();
 }
-
 document.getElementById("title").addEventListener("input", updateNewsletter);
 document.getElementById("article-link").addEventListener("input", updateNewsletter);
 document.getElementById("byline").addEventListener("input", updateNewsletter);
@@ -79,10 +80,34 @@ document.getElementById("thumbnail-link").addEventListener("input", updateNewsle
 document.getElementById("thumbnail-credit").addEventListener("input", updateNewsletter);
 document.getElementById("article-id").addEventListener("input", updateNewsletter);
 
-function updateCode() {
-  document.getElementById("code-box").innerHTML = theNewsletter.toMJML();
+// from https://stackoverflow.com/questions/2794137/sanitizing-user-input-before-adding-it-to-the-dom-in-javascript
+function sanitize(string) {
+  const map = {
+      '&': '&amp;',
+      '<': '&lt;',
+      '>': '&gt;',
+      '"': '&quot;',
+      "'": '&#x27;',
+      "/": '&#x2F;',
+      "`": '&grave;'
+  };
+  const reg = /[&<>"'/]/ig;
+  return string.replace(reg, (match)=>(map[match]));
 }
 
+// update code box
+function updateCode() {
+  document.getElementById("code-box").innerHTML = sanitize(theNewsletter.toMJML());
+}
+
+// fill and update all the fields
+function fillAll() {
+  listArticles();
+  fillFields();
+  updateCode();
+}
+
+// add and delete articles
 function addArticle() {
   art = new Article();
   theNewsletter.add(art);
@@ -98,10 +123,40 @@ function deleteArticle() {
 }
 document.getElementById("delete-button").addEventListener("click", deleteArticle);
 
-function fillAll() {
-  listArticles();
-  fillFields();
-  updateCode();
+// export the json file
+// code from https://ourcodeworld.com/articles/read/189/how-to-create-a-file-and-generate-a-download-with-javascript-in-the-browser-without-a-server
+function download(filename, text) {
+  var element = document.createElement('a');
+  element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(text));
+  element.setAttribute('download', filename);
+  element.click();
 }
+document.getElementById("export-button").addEventListener("click", function() {
+  download(theNewsletter.yyyymmdd() + ".json", JSON.stringify(theNewsletter));
+});
+// using code from https://stackoverflow.com/questions/16215771/how-to-open-select-file-dialog-via-js
+document.getElementById("open-button").addEventListener("click", function() {
+  var input = document.createElement('input');
+  input.type = 'file';
+
+  input.onchange = e => {
+
+     // getting a hold of the file reference
+     var file = e.target.files[0];
+
+     // setting up the reader
+     var reader = new FileReader();
+     reader.readAsText(file,'UTF-8');
+
+     // here we tell the reader what to do when it's done reading...
+     reader.onload = readerEvent => {
+        var content = readerEvent.target.result; // this is the content!
+        theNewsletter = JSON.parse(content);
+        fillAll();
+     }
+
+  }
+  input.click();
+});
 
 fillAll();

@@ -85,6 +85,10 @@ function Newsletter() {
 
     return mjml;
   }
+
+  this.yyyymmdd = function() {
+    return this.date.getFullYear().toString() + (this.date.getMonth() + 1).toString().padStart(2, "0") + this.date.getDate().toString().padStart(2, "0");
+  }
 }
 
 function newsletterFromJSON(jsonData) {
