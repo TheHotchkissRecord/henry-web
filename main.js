@@ -27,6 +27,7 @@ function findArticleById(theId) {
   return -1;
 }
 
+// list out all the articles
 function listArticles() {
   listBox = document.getElementById("articles-list");
   listBox.innerHTML = "";
@@ -47,6 +48,7 @@ function listArticles() {
   }
 }
 
+// populate article input fields
 function fillFields() {
   theArticle = theNewsletter.articles[findArticleById(theArticleId)];
   document.getElementById("title").value = theArticle.title;
@@ -140,21 +142,17 @@ document.getElementById("open-button").addEventListener("click", function() {
   input.type = 'file';
 
   input.onchange = e => {
-
      // getting a hold of the file reference
      var file = e.target.files[0];
-
      // setting up the reader
      var reader = new FileReader();
      reader.readAsText(file,'UTF-8');
-
      // here we tell the reader what to do when it's done reading...
      reader.onload = readerEvent => {
         var content = readerEvent.target.result; // this is the content!
         theNewsletter = JSON.parse(content);
         fillAll();
      }
-
   }
   input.click();
 });
