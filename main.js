@@ -38,6 +38,7 @@ function listArticles() {
 
     articleP.addEventListener("click", function (event){
       theArticleId = event.target.id;
+      console.log(theArticleId);
       fillFields();
     });
 
@@ -46,7 +47,7 @@ function listArticles() {
 }
 
 function fillFields() {
-  theArticle = theNewsletter.articles[theArticleId];
+  theArticle = theNewsletter.articles[findArticleById(theArticleId)];
   document.getElementById("title").value = theArticle.title;
   document.getElementById("article-link").value = theArticle.articleLink;
   document.getElementById("byline").value = theArticle.byline;
@@ -58,13 +59,14 @@ function fillFields() {
 }
 
 function updateNewsletter() {
-  theNewsletter.articles[theArticleId].title = document.getElementById("title").value;
-  theNewsletter.articles[theArticleId].articleLink = document.getElementById("article-link").value;
-  theNewsletter.articles[theArticleId].byline = document.getElementById("byline").value;
-  theNewsletter.articles[theArticleId].contentPreview = document.getElementById("content-preview").value;
-  theNewsletter.articles[theArticleId].thumbnailCaption = document.getElementById("thumbnail-caption").value;
-  theNewsletter.articles[theArticleId].thumbnailLink = document.getElementById("thumbnail-link").value;
-  theNewsletter.articles[theArticleId].thumbnailCredit = document.getElementById("thumbnail-credit").value;
+  articleId = findArticleById(theArticleId);
+  theNewsletter.articles[articleId].title = document.getElementById("title").value;
+  theNewsletter.articles[articleId].articleLink = document.getElementById("article-link").value;
+  theNewsletter.articles[articleId].byline = document.getElementById("byline").value;
+  theNewsletter.articles[articleId].contentPreview = document.getElementById("content-preview").value;
+  theNewsletter.articles[articleId].thumbnailCaption = document.getElementById("thumbnail-caption").value;
+  theNewsletter.articles[articleId].thumbnailLink = document.getElementById("thumbnail-link").value;
+  theNewsletter.articles[articleId].thumbnailCredit = document.getElementById("thumbnail-credit").value;
   fillAll();
 }
 
@@ -80,6 +82,21 @@ document.getElementById("article-id").addEventListener("input", updateNewsletter
 function updateCode() {
   document.getElementById("code-box").innerHTML = theNewsletter.toMJML();
 }
+
+function addArticle() {
+  art = new Article();
+  theNewsletter.add(art);
+  fillAll();
+}
+document.getElementById("add-button").addEventListener("click", addArticle);
+
+function deleteArticle() {
+  theNewsletter.delete(Number(theArticleId));
+  theArticleId -= 1;
+  fillAll();
+  console.log("clicked");
+}
+document.getElementById("delete-button").addEventListener("click", deleteArticle);
 
 function fillAll() {
   listArticles();
