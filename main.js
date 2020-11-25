@@ -61,6 +61,10 @@ function fillFields() {
   document.getElementById("article-id").innerHTML = theArticleId;
 
   document.getElementById("now-editing").innerHTML = "Now editing: <b>" + theArticle.title + "</b> in <b>" + theNewsletter.yyyymmdd() + "</b>";
+
+  document.getElementById("email-preview").value = theNewsletter.emailPreview;
+  document.getElementById("email-intro").value = theNewsletter.intro;
+  document.getElementById("errata").value = theNewsletter.errata;
 }
 
 // update newsletter fields
@@ -73,6 +77,11 @@ function updateNewsletter() {
   theNewsletter.articles[articleId].thumbnailCaption = document.getElementById("thumbnail-caption").value;
   theNewsletter.articles[articleId].thumbnailLink = document.getElementById("thumbnail-link").value;
   theNewsletter.articles[articleId].thumbnailCredit = document.getElementById("thumbnail-credit").value;
+
+  theNewsletter.emailPreview = document.getElementById("email-preview").value;
+  theNewsletter.intro = document.getElementById("email-intro").value;
+  theNewsletter.errata = document.getElementById("errata").value
+
   fillAll();
 }
 document.getElementById("title").addEventListener("input", updateNewsletter);
@@ -83,6 +92,9 @@ document.getElementById("thumbnail-caption").addEventListener("input", updateNew
 document.getElementById("thumbnail-link").addEventListener("input", updateNewsletter);
 document.getElementById("thumbnail-credit").addEventListener("input", updateNewsletter);
 document.getElementById("article-id").addEventListener("input", updateNewsletter);
+document.getElementById("email-preview").addEventListener("input", updateNewsletter);
+document.getElementById("email-intro").addEventListener("input", updateNewsletter);
+document.getElementById("errata").addEventListener("input", updateNewsletter);
 
 // update code box
 function updateCode() {
@@ -148,9 +160,48 @@ document.getElementById("copy-mjml-button").addEventListener("click", function()
   document.execCommand("copy");
   textArea.parentNode.removeChild(textArea);
 });
-
+// download mjml code
 document.getElementById("download-mjml-button").addEventListener("click", function() {
   download(theNewsletter.yyyymmdd() + ".mjml", theNewsletter.toMJML());
 });
 
+document.getElementById("date-button").addEventListener("click", function() {
+  var year, month, day;
+  while (true) {
+    year = prompt("Enter the year (yyyy):", "2020");
+    if (year == null) {
+      return;
+    }
+    if (!(isNaN(year) || Number(year) < 0)) {
+      break;
+    }
+  }
+  while(true) {
+    month = prompt("Enter the month (mm):");
+    if (month == null) {
+      return;
+    }
+    if (!(isNaN(month) || Number(month) > 12 || Number(month) < 1)) {
+      break;
+    }
+  }
+  while(true) {
+    day = prompt("Enter the day (dd):");
+    if (day == null) {
+      return;
+    }
+    if (!(isNaN(day) || Number(day) > 31 || Number(day) < 1)) {
+      break;
+    }
+  }
+  theNewsletter.date = new Date(Number(year), Number(month) - 1, Number(day));
+  fillAll();
+});
+
+// ask before leaving
+window.onbeforeunload = function() {
+  return 'Changes you made may not be saved.';
+};
+
+// startup
 fillAll();
