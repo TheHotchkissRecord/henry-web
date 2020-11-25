@@ -11,9 +11,9 @@
 <body>
 
   <div class="tab">
-    <button class="" onclick="">Henry</button>
-    <button class="" onclick="">Now editing:</button>
-    <button class="" onclick="">New Newsletter</button>
+    <a href="https://github.com/TheHotchkissRecord/henry-web" target="_blank"><button>Henry</button></a>
+    <button id="now-editing">Now editing:</button>
+    <button id="new-news-button">New Newsletter</button>
     <button id="open-button">Open Newsletter JSON</button>
     <button id="export-button">Export Newsletter JSON</button>
    </div>
@@ -56,15 +56,17 @@
 
     <div class="split" id="three">
       <button id="download-mjml-button">Download MJML</button>
-      <button class="" onclick="">Copy to Clipboard (doesn't work yet)</button>
+      <button id="copy-mjml-button">Copy to Clipboard</button>
       Go to <a href="https://mjml.io/try-it-live">mjml.io/try-it-live</a> to compile.
       <br>
       <pre><code id="code-box" readonly data-language="html"></code></pre>
     </div>
   </div>
 
+  <!-- <script src="https://unpkg.com/split.js/dist/split.min.js"></script> -->
   <script src="split.min.js"></script>
   <script src="rainbow-custom.min.js"></script>
+  <script src="utils.js"></script>
   <script src="templates.js"></script>
   <script src="newsletter.js"></script>
   <script src="main.js"></script>

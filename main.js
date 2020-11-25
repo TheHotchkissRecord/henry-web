@@ -48,7 +48,7 @@ function listArticles() {
   }
 }
 
-// populate article input fields
+// populate article input fields and title
 function fillFields() {
   theArticle = theNewsletter.articles[findArticleById(theArticleId)];
   document.getElementById("title").value = theArticle.title;
@@ -59,6 +59,8 @@ function fillFields() {
   document.getElementById("thumbnail-link").value = theArticle.thumbnailLink;
   document.getElementById("thumbnail-credit").value = theArticle.thumbnailCredit;
   document.getElementById("article-id").innerHTML = theArticleId;
+
+  document.getElementById("now-editing").innerHTML = "Now editing: <b>" + theArticle.title + "</b> in <b>" + theNewsletter.yyyymmdd() + "</b>";
 }
 
 // update newsletter fields
@@ -82,24 +84,11 @@ document.getElementById("thumbnail-link").addEventListener("input", updateNewsle
 document.getElementById("thumbnail-credit").addEventListener("input", updateNewsletter);
 document.getElementById("article-id").addEventListener("input", updateNewsletter);
 
-// from https://stackoverflow.com/questions/2794137/sanitizing-user-input-before-adding-it-to-the-dom-in-javascript
-function sanitize(string) {
-  const map = {
-      '&': '&amp;',
-      '<': '&lt;',
-      '>': '&gt;',
-      '"': '&quot;',
-      "'": '&#x27;',
-      "/": '&#x2F;',
-      "`": '&grave;'
-  };
-  const reg = /[&<>"'/]/ig;
-  return string.replace(reg, (match)=>(map[match]));
-}
-
 // update code box
 function updateCode() {
-  document.getElementById("code-box").innerHTML = sanitize(theNewsletter.toMJML());
+  Rainbow.color(sanitize(theNewsletter.toMJML()), 'html', function(highlightedCode) {
+    document.getElementById("code-box").innerHTML = highlightedCode;
+  });
 }
 
 // fill and update all the fields
@@ -126,13 +115,6 @@ function deleteArticle() {
 document.getElementById("delete-button").addEventListener("click", deleteArticle);
 
 // export the json file
-// code from https://ourcodeworld.com/articles/read/189/how-to-create-a-file-and-generate-a-download-with-javascript-in-the-browser-without-a-server
-function download(filename, text) {
-  var element = document.createElement('a');
-  element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(text));
-  element.setAttribute('download', filename);
-  element.click();
-}
 document.getElementById("export-button").addEventListener("click", function() {
   download(theNewsletter.yyyymmdd() + ".json", JSON.stringify(theNewsletter));
 });
@@ -150,11 +132,25 @@ document.getElementById("open-button").addEventListener("click", function() {
      // here we tell the reader what to do when it's done reading...
      reader.onload = readerEvent => {
         var content = readerEvent.target.result; // this is the content!
-        theNewsletter = JSON.parse(content);
+        theNewsletter = newsletterFromJSON(content);
         fillAll();
      }
   }
   input.click();
+});
+
+// copy mjml to clipboard
+document.getElementById("copy-mjml-button").addEventListener("click", function() {
+  const textArea = document.createElement('textarea');
+  textArea.textContent = theNewsletter.toMJML();
+  document.body.append(textArea);
+  textArea.select();
+  document.execCommand("copy");
+  textArea.parentNode.removeChild(textArea);
+});
+
+document.getElementById("download-mjml-button").addEventListener("click", function() {
+  download(theNewsletter.yyyymmdd() + ".mjml", theNewsletter.toMJML());
 });
 
 fillAll();
