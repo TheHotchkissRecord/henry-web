@@ -16,6 +16,7 @@ news.add(art3);
 var theNewsletter = news;//new Newsletter();
 var theArticleId = 0;//-1;
 
+// sequential search
 function findArticleById(theId) {
   for (var i = 0; i < theNewsletter.articleOrder.length; i++) {
     if (theNewsletter.articles[i].id == theId) {
@@ -25,19 +26,17 @@ function findArticleById(theId) {
   return -1;
 }
 
-
 function listArticles() {
   listBox = document.getElementById("articles-list");
   listBox.innerHTML = "";
   for (var i = 0; i < theNewsletter.articleOrder.length; i++) {
     articleP = document.createElement("p");
-    console.log(findArticleById(theNewsletter.articleOrder[i]));
+
     theArticle = theNewsletter.articles[findArticleById(theNewsletter.articleOrder[i])];
     articleP.id = theArticle.id;
     articleP.appendChild(document.createTextNode((i + 1) + ". " + theArticle.title));
 
     articleP.addEventListener("click", function (event){
-      console.log("clicked");
       theArticleId = event.target.id;
       fillFields();
     });
@@ -66,6 +65,7 @@ function updateNewsletter() {
   theNewsletter.articles[theArticleId].thumbnailCaption = document.getElementById("thumbnail-caption").value;
   theNewsletter.articles[theArticleId].thumbnailLink = document.getElementById("thumbnail-link").value;
   theNewsletter.articles[theArticleId].thumbnailCredit = document.getElementById("thumbnail-credit").value;
+  fillAll();
 }
 
 document.getElementById("title").addEventListener("input", updateNewsletter);
@@ -77,9 +77,14 @@ document.getElementById("thumbnail-link").addEventListener("input", updateNewsle
 document.getElementById("thumbnail-credit").addEventListener("input", updateNewsletter);
 document.getElementById("article-id").addEventListener("input", updateNewsletter);
 
+function updateCode() {
+  document.getElementById("code-box").innerHTML = theNewsletter.toMJML();
+}
+
 function fillAll() {
   listArticles();
   fillFields();
+  updateCode();
 }
 
 fillAll();
