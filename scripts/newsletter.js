@@ -47,9 +47,9 @@ function Newsletter() {
   this.move = function(id, newPosition) {
     oldPosition = this.articleOrder.indexOf(id);
     if (oldPosition != -1) {
-      this.articleOrder.move(oldPosition, newPosition)
+      this.articleOrder.move(oldPosition, newPosition);
     } else {
-      throw "Article ID not found in articleOrder"
+      throw "Article ID not found in articleOrder";
     }
   }
 

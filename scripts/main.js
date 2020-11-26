@@ -245,7 +245,13 @@ window.onbeforeunload = function() {
 dragula([document.getElementById("articles-list")]).on('drop', function(el, target, source, sibling) {
   var newPosition;
   if (sibling != null) {
-    newPosition = theNewsletter.articleOrder.indexOf(Number(sibling.id));
+    sibPos = theNewsletter.articleOrder.indexOf(Number(sibling.id));
+    myPos = theNewsletter.articleOrder.indexOf(Number(el.id));
+    if (sibPos > myPos) {
+      newPosition = sibPos - 1;
+    } else {
+      newPosition = sibPos;
+    }
   } else {
     newPosition = theNewsletter.articleOrder.length - 1;
   }
