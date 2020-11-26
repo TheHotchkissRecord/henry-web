@@ -1,8 +1,3 @@
-// probably move this to a separate file
-Array.prototype.move = function(from, to) {
-    this.splice(to, 0, this.splice(from, 1)[0]);
-};
-
 function Article() {
   this.id = -1; // article is not assigned a unique id until added to a newsletter object
   this.title = "";
@@ -17,7 +12,10 @@ function Article() {
     mjml = ARTICLE_TEXT;
 
     // some of this stuff should not be included if it is empty
-    // should also check if links are valid - maybe that should be a separate function though
+    // should also check if links are valid
+    if (isUrl(this.thumbnailLink)) {
+      mjml = mjml.replace("<!-- Thumbnail -->", "<mj-image src=\"%Thumbnail\" width=\"600px\" alt=\"\" padding=\"0\" href=\"%Link\" />");
+    }
     mjml = mjml.replace("%Thumbnail", this.thumbnailLink);
     mjml = mjml.replace("%Caption", this.thumbnailCaption);
     mjml = mjml.replace("%Credit", this.thumbnailCredit);
@@ -25,7 +23,7 @@ function Article() {
     mjml = mjml.replace("%Author", this.byline);
     mjml = mjml.replace("%Preview", this.contentPreview);
     mjml = mjml.replace("%Link", this.articleLink);
-
+    //console.log(mjml)
     return mjml;
   }
 }

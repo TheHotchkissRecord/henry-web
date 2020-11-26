@@ -6,9 +6,9 @@ var art1 = new Article();
 var art2 = new Article();
 var art3 = new Article();
 
-art1.title = "article 1";
-art2.title = "article 2";
-art3.title = "article 3";
+art1.title = "Welcome to Henry!";
+art2.title = "Click titles to switch between articles.";
+art3.title = "You will be able to drag and drop to reorder articles.";
 
 news.add(art1);
 news.add(art2);
@@ -17,7 +17,7 @@ news.add(art3);
 var theNewsletter = news;//new Newsletter();
 var theArticleId = 0;//-1;
 
-// sequential search
+// do we actually need this function? sequential search
 function findArticleById(theId) {
   for (var i = 0; i < theNewsletter.articleOrder.length; i++) {
     if (theNewsletter.articles[i].id == theId) {
@@ -69,14 +69,14 @@ function fillFields() {
 
 // update newsletter fields
 function updateNewsletter() {
-  articleId = findArticleById(theArticleId);
-  theNewsletter.articles[articleId].title = document.getElementById("title").value;
-  theNewsletter.articles[articleId].articleLink = document.getElementById("article-link").value;
-  theNewsletter.articles[articleId].byline = document.getElementById("byline").value;
-  theNewsletter.articles[articleId].contentPreview = document.getElementById("content-preview").value;
-  theNewsletter.articles[articleId].thumbnailCaption = document.getElementById("thumbnail-caption").value;
-  theNewsletter.articles[articleId].thumbnailLink = document.getElementById("thumbnail-link").value;
-  theNewsletter.articles[articleId].thumbnailCredit = document.getElementById("thumbnail-credit").value;
+  articlePos = findArticleById(theArticleId);
+  theNewsletter.articles[articlePos].title = document.getElementById("title").value;
+  theNewsletter.articles[articlePos].articleLink = document.getElementById("article-link").value;
+  theNewsletter.articles[articlePos].byline = document.getElementById("byline").value;
+  theNewsletter.articles[articlePos].contentPreview = document.getElementById("content-preview").value;
+  theNewsletter.articles[articlePos].thumbnailCaption = document.getElementById("thumbnail-caption").value;
+  theNewsletter.articles[articlePos].thumbnailLink = document.getElementById("thumbnail-link").value; console.log(document.getElementById("thumbnail-link").value);
+  theNewsletter.articles[articlePos].thumbnailCredit = document.getElementById("thumbnail-credit").value;
 
   theNewsletter.emailPreview = document.getElementById("email-preview").value;
   theNewsletter.intro = document.getElementById("email-intro").value;
