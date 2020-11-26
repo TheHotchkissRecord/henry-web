@@ -3,9 +3,9 @@
 <html>
 
 <head>
-  <link rel="stylesheet" type="text/css" href="styles.css">
-  <link rel="stylesheet" type="text/css" href="github.css">
-  <!-- <link rel="stylesheet" type="text/css" href="node_modules/dragula/dist/dragula.css"> -->
+  <link rel="stylesheet" type="text/css" href="styles/styles.css">
+  <link rel="stylesheet" type="text/css" href="styles/github.css">
+  <link rel="stylesheet" type="text/css" href="styles/dragula.css">
 </head>
 
 <body>
@@ -21,9 +21,9 @@
   <div>
     <div class="split" id="one">
       Email Intro:<br>
-      <textarea id="email-intro"></textarea><br>
+      <textarea id="email-intro" placeholder="The editorial message."></textarea><br>
       Email Preview:<br>
-      <textarea id="email-preview"></textarea><br>
+      <textarea id="email-preview" placeholder="A description of the newsletter that will be used as the email preview."></textarea><br>
       Errata:<br>
       <textarea id="errata"></textarea><br>
 
@@ -67,11 +67,12 @@
   </div>
 
   <!-- <script src="https://unpkg.com/split.js/dist/split.min.js"></script> -->
-  <script src="split.min.js"></script>
-  <script src="rainbow-custom.min.js"></script>
-  <script src="utils.js"></script>
-  <script src="templates.js"></script>
-  <script src="newsletter.js"></script>
-  <script src="main.js"></script>
+  <script src='https://cdnjs.cloudflare.com/ajax/libs/dragula/$VERSION/dragula.min.js'></script>
+  <script src="scripts/split.min.js"></script>
+  <script src="scripts/rainbow-custom.min.js"></script>
+  <script src="scripts/utils.js"></script>
+  <script src="scripts/templates.js"></script>
+  <script src="scripts/newsletter.js"></script>
+  <script src="scripts/main.js"></script>
 </body>
 </html>

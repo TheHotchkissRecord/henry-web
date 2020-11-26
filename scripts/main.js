@@ -5,17 +5,21 @@ var news = new Newsletter();
 var art1 = new Article();
 var art2 = new Article();
 var art3 = new Article();
-
+var art4 = new Article();
+var art5 = new Article();
 art1.title = "Welcome to Henry!";
 art2.title = "Click titles to switch between articles.";
 art3.title = "You will be able to drag and drop to reorder articles.";
-
+art4.title = "Remember to export the newsletter JSON before leaving!";
+art5.title = "Have fun :)";
 news.add(art1);
 news.add(art2);
 news.add(art3);
+news.add(art4);
+news.add(art5);
 
-var theNewsletter = news;//new Newsletter();
-var theArticleId = 0;//-1;
+var theNewsletter = news;
+var theArticleId = 0;
 
 // do we actually need this function? sequential search
 function findArticleById(theId) {

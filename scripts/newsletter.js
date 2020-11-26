@@ -114,12 +114,3 @@ function newsletterFromJSON(jsonData) {
 
   return news;
 }
-
-var news = new Newsletter();
-var art1 = new Article();
-var art2 = new Article();
-var art3 = new Article();
-
-news.add(art1);
-news.add(art2);
-news.add(art3);
