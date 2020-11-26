@@ -41,8 +41,8 @@
       <input type="text" id="title"></input><br>
       What is the link of the article:<br>
       <input type="text" id="article-link"></input><br>
-      Byline (FirstName LastName ’19, Staff Writer):<br>
-      <input type="text" id="byline"></input><br>
+      Byline:<br>
+      <input type="text" id="byline" placeholder="FirstName LastName ’19, Staff Writer"></input><br>
       Content preview:<br>
       <textarea id="content-preview"></textarea><br>
       If there is a thumbnail image, give it a caption. Otherwise, leave it blank:<br>
@@ -51,9 +51,13 @@
       <input type="text" id="thumbnail-credit"></input><br>
       If there is a thumbnail image, put the link on the next line. Otherwise, leave it blank:<br>
       <input type="text"id="thumbnail-link"></input><br>
-      placeholder for image preview below here<br>
 
-      <button id="delete-button">Delete Article</button><br>
+      <div id="image-preview-box">
+        Image preview:<br>
+        <img id="image-preview" width="75%">
+      </div>
+
+      <br><button id="delete-button">Delete Article</button><br>
       Article ID: <span id="article-id"></span>
     </div>
 
@@ -67,7 +71,7 @@
   </div>
 
   <!-- <script src="https://unpkg.com/split.js/dist/split.min.js"></script> -->
-  <script src='https://cdnjs.cloudflare.com/ajax/libs/dragula/$VERSION/dragula.min.js'></script>
+  <script src='scripts/dragula.min.js'></script>
   <script src="scripts/split.min.js"></script>
   <script src="scripts/rainbow-custom.min.js"></script>
   <script src="scripts/utils.js"></script>

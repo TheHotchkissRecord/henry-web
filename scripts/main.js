@@ -9,7 +9,7 @@ var art4 = new Article();
 var art5 = new Article();
 art1.title = "Welcome to Henry!";
 art2.title = "Click titles to switch between articles.";
-art3.title = "You will be able to drag and drop to reorder articles.";
+art3.title = "Drag and drop to reorder articles.";
 art4.title = "Remember to export the newsletter JSON before leaving!";
 art5.title = "Have fun :)";
 news.add(art1);
@@ -69,6 +69,13 @@ function fillFields() {
   document.getElementById("email-preview").value = theNewsletter.emailPreview;
   document.getElementById("email-intro").value = theNewsletter.intro;
   document.getElementById("errata").value = theNewsletter.errata;
+
+  if (isUrl(theArticle.thumbnailLink)) {
+    document.getElementById("image-preview-box").style.display = "block";
+    document.getElementById("image-preview").src = theArticle.thumbnailLink;
+  } else {
+    document.getElementById("image-preview-box").style.display = "none";
+  }
 }
 
 // update newsletter fields
@@ -233,6 +240,18 @@ document.getElementById("new-news-button").addEventListener("click", function() 
 window.onbeforeunload = function() {
   return 'Changes you made may not be saved.';
 };
+
+// drag and drop to move articles
+dragula([document.getElementById("articles-list")]).on('drop', function(el, target, source, sibling) {
+  var newPosition;
+  if (sibling != null) {
+    newPosition = theNewsletter.articleOrder.indexOf(Number(sibling.id));
+  } else {
+    newPosition = theNewsletter.articleOrder.length - 1;
+  }
+  theNewsletter.move(Number(el.id), newPosition)
+  fillAll();
+});
 
 // startup
 fillAll();
