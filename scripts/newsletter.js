@@ -53,6 +53,7 @@ function Newsletter() {
     }
   }
 
+  // returns position of former article in articleOrder
   this.delete = function(id) {
     orderPosition = this.articleOrder.indexOf(id);
     articlesPosition = this.articles.findIndex(element => element.id == id);
@@ -62,6 +63,7 @@ function Newsletter() {
     } else {
       throw "Article ID not found in either articleOrder or articles"
     }
+    return orderPosition;
   }
 
   this.toMJML = function() {

@@ -1,6 +1,6 @@
 Split(['#one', '#two', '#three']);
 
-// just for testing right now
+// default newsletter onload
 var news = new Newsletter();
 var art1 = new Article();
 var art2 = new Article();
@@ -123,10 +123,16 @@ function addArticle() {
 document.getElementById("add-button").addEventListener("click", addArticle);
 
 function deleteArticle() {
-  theNewsletter.delete(Number(theArticleId));
-  theArticleId -= 1;
+  if (!confirm("Delete this article? This action cannot be undone.")) {
+    return;
+  }
+  formerPos = theNewsletter.delete(Number(theArticleId));
+  if (formerPos != 0) {
+    theArticleId = theNewsletter.articleOrder[formerPos - 1]; // switch to the previous article, unless we are deleting the first article
+  } else {
+    theArticleId = theNewsletter.articleOrder[0];
+  }
   fillAll();
-  console.log("clicked");
 }
 document.getElementById("delete-button").addEventListener("click", deleteArticle);
 
@@ -200,6 +206,27 @@ document.getElementById("date-button").addEventListener("click", function() {
   }
   theNewsletter.date = new Date(Number(year), Number(month) - 1, Number(day));
   fillAll();
+});
+
+// new newsletter
+document.getElementById("new-news-button").addEventListener("click", function() {
+  if (!confirm("Create a new newsletter? Changes to the current newsletter will not be saved.")) {
+    return;
+  }
+  theNewsletter = new Newsletter();
+  document.getElementById("date-button").click();
+  while (true) {
+    numArticles = prompt("Number of articles:");
+    if (numArticles == null) {
+      return;
+    }
+    if (!(isNaN(numArticles) || Number(numArticles) < 0)) {
+      break;
+    }
+  }
+  for (var i = 0; i < numArticles; i++) {
+    addArticle();
+  }
 });
 
 // ask before leaving
