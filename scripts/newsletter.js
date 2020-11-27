@@ -31,7 +31,7 @@ function Article() {
     mjml = mjml.replace("%Title", this.title);
     mjml = mjml.replace("%Author", this.byline);
     mjml = mjml.replace("%Preview", this.contentPreview);
-    mjml = mjml.replace("%Link", this.articleLink);
+    mjml = mjml.replaceAll("%Link", this.articleLink);
     //console.log(mjml)
     return mjml;
   }
