@@ -5,6 +5,7 @@ Web app port of [Henry](https://github.com/TheHotchkissRecord/henry) that compil
 Designed by [Reece Yang ’21](https://github.com/reeceyang) and based on code by [Jiahua Chen ’20](https://github.com/jchen).
 
 henry-web uses:
+- [MJML](https://mjml.io/)
 - [dragula](https://bevacqua.github.io/dragula/)
 - [Split.js](https://split.js.org/)
 - [Rainbow](https://craig.is/making/rainbows)

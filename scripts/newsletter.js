@@ -14,7 +14,16 @@ function Article() {
     // some of this stuff should not be included if it is empty
     // should also check if links are valid
     if (isUrl(this.thumbnailLink)) {
-      mjml = mjml.replace("<!-- Thumbnail -->", "<mj-image src=\"%Thumbnail\" width=\"600px\" alt=\"\" padding=\"0\" href=\"%Link\" />");
+      mjml = mjml.replace("<!-- Thumbnail", "");
+      mjml = mjml.replace("Thumbnail -->", "");
+    }
+    if (this.thumbnailCaption != "") {
+      mjml = mjml.replace("<!-- Caption", "");
+      mjml = mjml.replace("Caption -->", "");
+    }
+    if (this.thumbnailCredit != "") {
+      mjml = mjml.replace("<!-- Credit", "");
+      mjml = mjml.replace("Credit -->", "");
     }
     mjml = mjml.replace("%Thumbnail", this.thumbnailLink);
     mjml = mjml.replace("%Caption", this.thumbnailCaption);

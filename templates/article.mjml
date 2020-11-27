@@ -1,0 +1,31 @@
+<!-- Start of an article preview -->
+<!-- Thumbnail <mj-section full-width="full-width" background-color="#ffffff" padding-bottom="0">
+  <mj-column width="100%">
+    <mj-image src="%Thumbnail" width="600px" alt="" padding="0" href="%Link" />
+  </mj-column>
+</mj-section> Thumbnail -->
+<!-- Start of text -->
+<mj-section background-color="#ffffff" padding-left="15px" padding-right="15px">
+  <mj-column width="100%">
+    <!-- Credit <mj-text color="#637381" font-size="12px" align=right padding-right="5px">
+      %Credit
+    </mj-text> Credit -->
+    <!-- Caption <mj-text color="#637381" font-size="12px" align=left padding-left="5px">
+      <i>%Caption</i>
+    </mj-text> Caption -->
+    <mj-text color="#212b35" font-weight="bold" font-size="20px">
+      %Title
+    </mj-text>
+    <mj-text color="#212b35" font-size="12px" height=15px font-weight="bold">
+      %Author
+    </mj-text>
+    <mj-text color="#637381" font-size="16px">
+      %Preview
+    </mj-text>
+    <mj-button background-color="#202F5A" align="center" color="#ffffff" font-size="17px" font-weight="bold" href="%Link" width="300px">
+      Continue Reading
+    </mj-button>
+  </mj-column>
+</mj-section>
+<!-- End of text-->
+<!-- End of an article -->
