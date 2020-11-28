@@ -25,12 +25,12 @@ function Article() {
       mjml = mjml.replace("<!-- Credit", "");
       mjml = mjml.replace("Credit -->", "");
     }
-    mjml = mjml.replace("%Thumbnail", this.thumbnailLink);
-    mjml = mjml.replace("%Caption", this.thumbnailCaption);
-    mjml = mjml.replace("%Credit", this.thumbnailCredit);
-    mjml = mjml.replace("%Title", this.title);
-    mjml = mjml.replace("%Author", this.byline);
-    mjml = mjml.replace("%Preview", this.contentPreview);
+    mjml = mjml.replaceAll("%Thumbnail", this.thumbnailLink);
+    mjml = mjml.replaceAll("%Caption", this.thumbnailCaption);
+    mjml = mjml.replaceAll("%Credit", this.thumbnailCredit);
+    mjml = mjml.replaceAll("%Title", this.title);
+    mjml = mjml.replaceAll("%Author", this.byline);
+    mjml = mjml.replaceAll("%Preview", this.contentPreview);
     mjml = mjml.replaceAll("%Link", this.articleLink);
     //console.log(mjml)
     return mjml;
@@ -82,15 +82,15 @@ function Newsletter() {
     }
     mjml = MAIN_TEXT;
     // might not work in Internet Explorer
-    mjml = mjml.replace(/%YYYYMMDD/g, this.date.getFullYear().toString() + (this.date.getMonth() + 1).toString().padStart(2, "0") + this.date.getDate().toString().padStart(2, "0"));
-    mjml = mjml.replace(/%Month/g, this.date.toLocaleString('default', { month: 'long' }));
-    mjml = mjml.replace(/%DD/g, this.date.getDate().toString().padStart(2, "0"))
-    mjml = mjml.replace(/%YYYY/g, this.date.getFullYear());
-    mjml = mjml.replace(/%Weekday/g, this.date.toLocaleDateString('default', { weekday: 'long' }))
-    mjml = mjml.replace("%Description", this.emailPreview);
-    mjml = mjml.replace("%Editorial", this.intro);
-    mjml = mjml.replace("%Errata", this.errata);
-    mjml = mjml.replace("%Articles", articlesMJML);
+    mjml = mjml.replaceAll(/%YYYYMMDD/g, this.date.getFullYear().toString() + (this.date.getMonth() + 1).toString().padStart(2, "0") + this.date.getDate().toString().padStart(2, "0"));
+    mjml = mjml.replaceAll(/%Month/g, this.date.toLocaleString('default', { month: 'long' }));
+    mjml = mjml.replaceAll(/%DD/g, this.date.getDate().toString().padStart(2, "0"))
+    mjml = mjml.replaceAll(/%YYYY/g, this.date.getFullYear());
+    mjml = mjml.replaceAll(/%Weekday/g, this.date.toLocaleDateString('default', { weekday: 'long' }))
+    mjml = mjml.replaceAll("%Description", this.emailPreview);
+    mjml = mjml.replaceAll("%Editorial", this.intro);
+    mjml = mjml.replaceAll("%Errata", this.errata);
+    mjml = mjml.replaceAll("%Articles", articlesMJML);
 
     return mjml;
   }
