@@ -261,3 +261,20 @@ dragula([document.getElementById("articles-list")]).on('drop', function(el, targ
 
 // startup
 fillAll();
+
+// dark mode
+darkMode = window.matchMedia("(prefers-color-scheme: dark)").matches;
+
+document.getElementById("dark-button").addEventListener("click", function() {
+  document.body.classList.toggle('dark');
+  if (darkMode) {
+    document.getElementById('color-scheme').href = 'styles/tomorrow-night.css';
+  } else {
+    document.getElementById('color-scheme').href = 'styles/github.css';
+  }
+  darkMode = !darkMode;
+});
+
+if (darkMode) {
+  document.getElementById("dark-button").click();
+}

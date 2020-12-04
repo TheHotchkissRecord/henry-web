@@ -20,7 +20,7 @@ To-do:
 - [x] display an image preview
 - [x] show newsletter date in now editing: box
 - [ ] next/previous article buttons
-- [ ] better css
-- [ ] settings: dark mode, change templates, etc.
+- [x] better css
+- [x] settings: dark mode~~, change templates, etc.~~
 - [ ] auto compile mjml code?
 - [ ] optimize the code - we don't need to refresh everything after one change

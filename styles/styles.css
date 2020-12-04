@@ -1,5 +1,26 @@
+:root {
+  --background: #f8f8f8;
+  --background-darker: #eee;
+  --border: #ccc;
+  --hover: #ddd;
+  --text: black;
+}
+
+.dark {
+  --background: #242424;
+  --background-darker: #363636;
+  --hover: #484848;
+  --text: #ddd;
+  --border: #303030;
+}
+
+* {
+  transition: 0.25s;
+}
+
 body {
-  background-color: #f8f8f8;
+  background-color: var(--background);
+  color: var(--text);
 }
 
 button, #one, #two, #three:not(#code-box) {
@@ -7,15 +28,19 @@ button, #one, #two, #three:not(#code-box) {
   font-size: 12pt;
 }
 
+a {
+  color: #457b9d;
+}
+
 #one, #two, #three:not(#code-box) {
   padding: 0.5em;
 }
 
 .gutter {
-    background-color: #eee;
+  background-color: var(--background-darker);
 
-    background-repeat: no-repeat;
-    background-position: 50%;
+  background-repeat: no-repeat;
+  background-position: 50%;
 }
 
 .gutter.gutter-horizontal {
@@ -24,56 +49,43 @@ button, #one, #two, #three:not(#code-box) {
 }
 
 .split {
-    -webkit-box-sizing: border-box;
-    -moz-box-sizing: border-box;
-    box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
 }
 
 .split,
 .gutter.gutter-horizontal {
-    float: left;
-    height: 95vh;
+  float: left;
+  height: 95vh;
 }
 
 /* Style the tab */
 .tab {
   overflow: hidden;
-  border: 1px solid #ccc;
-  background-color: #f1f1f1;
+  border: 1px solid var(--border);
+  background-color: var(--background-darker);
 }
 
 /* Style the buttons that are used to open the tab content */
 .tab button {
   background-color: inherit;
+  color: var(--text);
   float: left;
   border: none;
   outline: none;
   cursor: pointer;
   padding: 14px 16px;
-  transition: 0.3s;
 }
 
 /* Change background color of buttons on hover */
 .tab button:hover {
-  background-color: #ddd;
-}
-
-/* Create an active/current tablink class */
-.tab button.active {
-  background-color: #ccc;
-}
-
-/* Style the tab content */
-.tabcontent {
-  display: none;
-  padding: 6px 12px;
-  border: 1px solid #ccc;
-  border-top: none;
+  background-color: var(--hover);
 }
 
 pre {
   white-space: pre-wrap;
-  overflow: scroll;
+  overflow: auto;
   width: 98%;
   height: 89vh;
 }
@@ -87,11 +99,33 @@ p:hover {
   overflow-y: auto;
 }
 
-input {
+input, textarea {
   width: 75%;
+  background-color: var(--background-darker);
+  border: hidden;
+  border-bottom: solid var(--hover);
+  color: inherit;
+  outline: none;
+  font: inherit;
+
+}
+
+input:focus, textarea:focus {
+  background-color: var(--hover);
 }
 
 textarea {
-  width: 75%;
-  height: 3em;
+  height: 5em;
+}
+
+button {
+  background-color: var(--background-darker);
+  border: hidden;
+  border-bottom: solid var(--hover);
+  color: inherit;
+}
+
+button:hover {
+  background-color: var(--hover);
+  cursor: pointer;
 }
