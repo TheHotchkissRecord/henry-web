@@ -21,6 +21,8 @@
 body {
   background-color: var(--background);
   color: var(--text);
+  margin: 0;
+  overflow: hidden;
 }
 
 button, #one, #two, #three:not(#code-box) {
@@ -30,6 +32,10 @@ button, #one, #two, #three:not(#code-box) {
 
 a {
   color: #457b9d;
+}
+
+#main {
+  margin-top: 3.25em;
 }
 
 #one, #two, #three:not(#code-box) {
@@ -52,17 +58,21 @@ a {
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box;
+  transition: 0.1s;
 }
 
 .split,
 .gutter.gutter-horizontal {
   float: left;
-  height: 95vh;
+  height: 97vh;
 }
 
 /* Style the tab */
 .tab {
   overflow: hidden;
+  position: fixed;
+  top: 0;
+  width: 100%;
   border: 1px solid var(--border);
   background-color: var(--background-darker);
 }
@@ -75,7 +85,7 @@ a {
   border: none;
   outline: none;
   cursor: pointer;
-  padding: 14px 16px;
+  padding: 1em 1em;
 }
 
 /* Change background color of buttons on hover */
@@ -107,7 +117,6 @@ input, textarea {
   color: inherit;
   outline: none;
   font: inherit;
-
 }
 
 input:focus, textarea:focus {
@@ -116,6 +125,10 @@ input:focus, textarea:focus {
 
 textarea {
   height: 5em;
+}
+
+textarea:resize {
+
 }
 
 button {
