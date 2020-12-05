@@ -9,7 +9,21 @@ function sanitize(string) {
       "/": '&#x2F;',
       "`": '&grave;'
   };
-  const reg = /[&<>"'/]/ig;
+  const reg = /[&<>"'/`]/ig;
+  return string.replace(reg, (match)=>(map[match]));
+}
+
+function unsanitize(string) {
+  const map = {
+      '&amp;' : '&',
+      '&lt;'  : '<',
+      '&gt;'  : '>',
+      '&quot;': '"',
+      '&#x27;': "'",
+      '&#x2F;': "/",
+      '&grave;': "`"
+  };
+  const reg = /&amp;|&lt;|&gt;|&quot;|&#x27;|&#x2F;|&grave;/ig;
   return string.replace(reg, (match)=>(map[match]));
 }
 
