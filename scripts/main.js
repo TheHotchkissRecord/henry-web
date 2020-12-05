@@ -86,7 +86,7 @@ function updateNewsletter() {
   theNewsletter.articles[articlePos].byline = document.getElementById("byline").value;
   theNewsletter.articles[articlePos].contentPreview = document.getElementById("content-preview").value;
   theNewsletter.articles[articlePos].thumbnailCaption = document.getElementById("thumbnail-caption").value;
-  theNewsletter.articles[articlePos].thumbnailLink = document.getElementById("thumbnail-link").value; console.log(document.getElementById("thumbnail-link").value);
+  theNewsletter.articles[articlePos].thumbnailLink = document.getElementById("thumbnail-link").value;
   theNewsletter.articles[articlePos].thumbnailCredit = document.getElementById("thumbnail-credit").value;
 
   theNewsletter.emailPreview = document.getElementById("email-preview").value;
@@ -122,14 +122,12 @@ function fillAll() {
 }
 
 // add and delete articles
-function addArticle() {
+document.getElementById("add-button").addEventListener("click", function () {
   art = new Article();
   theNewsletter.add(art);
   fillAll();
-}
-document.getElementById("add-button").addEventListener("click", addArticle);
-
-function deleteArticle() {
+});
+document.getElementById("delete-button").addEventListener("click", function () {
   if (!confirm("Delete this article? This action cannot be undone.")) {
     return;
   }
@@ -140,8 +138,31 @@ function deleteArticle() {
     theArticleId = theNewsletter.articleOrder[0];
   }
   fillAll();
-}
-document.getElementById("delete-button").addEventListener("click", deleteArticle);
+});
+
+// auto-fill articles
+document.getElementById("auto-fill-button").addEventListener("click", async function() {
+  var art = await scrape(document.getElementById("article-link").value);
+
+  document.getElementById("title").value = art.title;
+  document.getElementById("byline").value = art.byline;
+  document.getElementById("content-preview").value = art.contentPreview;
+  document.getElementById("thumbnail-caption").value = art.thumbnailCaption;
+  document.getElementById("thumbnail-link").value = art.thumbnailLink;
+  document.getElementById("thumbnail-credit").value = art.thumbnailCredit;
+
+  document.getElementById("now-editing").innerHTML = "Now editing: <b>" + art.title + "</b> in <b>" + theNewsletter.yyyymmdd() + "</b>";
+
+  if (isUrl(art.thumbnailLink)) {
+    document.getElementById("image-preview-box").style.display = "block";
+    document.getElementById("image-preview").src = art.thumbnailLink;
+  } else {
+    document.getElementById("image-preview-box").style.display = "none";
+  }
+
+  updateNewsletter();
+  fillAll();
+});
 
 // export the json file
 document.getElementById("export-button").addEventListener("click", function() {

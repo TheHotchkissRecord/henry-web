@@ -21,10 +21,19 @@ function unsanitize(string) {
       '&quot;': '"',
       '&#x27;': "'",
       '&#x2F;': "/",
-      '&grave;': "`"
+      '&grave;': "`",
+      '&nbsp;': "" // just map this to nothing for now?
   };
-  const reg = /&amp;|&lt;|&gt;|&quot;|&#x27;|&#x2F;|&grave;/ig;
+  const reg = /&amp;|&lt;|&gt;|&quot;|&#x27;|&#x2F;|&grave;|&nbsp;/ig;
   return string.replace(reg, (match)=>(map[match]));
+}
+
+function innermostNode(node) {
+  var currentNode = node;
+  while (currentNode.firstElementChild) {
+    currentNode = currentNode.firstElementChild;
+  }
+  return currentNode;
 }
 
 // code from https://ourcodeworld.com/articles/read/189/how-to-create-a-file-and-generate-a-download-with-javascript-in-the-browser-without-a-server

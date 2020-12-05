@@ -25,7 +25,7 @@ body {
   overflow: hidden;
 }
 
-button, #one, #two, #three:not(#code-box) {
+.tab, #one, #two, #three {
   font-family: 'Source Serif Pro', serif;
   font-size: 12pt;
 }
@@ -111,6 +111,9 @@ p:hover {
 
 input, textarea {
   width: 75%;
+}
+
+input, textarea, button {
   background-color: var(--background-darker);
   border: hidden;
   border-bottom: solid var(--hover);
@@ -127,18 +130,11 @@ textarea {
   height: 5em;
 }
 
-textarea:resize {
-
-}
-
-button {
-  background-color: var(--background-darker);
-  border: hidden;
-  border-bottom: solid var(--hover);
-  color: inherit;
-}
-
 button:hover {
   background-color: var(--hover);
   cursor: pointer;
+}
+
+#main button:active {
+  transform: translateY(0.2em);
 }
