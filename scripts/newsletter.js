@@ -84,7 +84,7 @@ function Newsletter() {
     // might not work in Internet Explorer
     mjml = mjml.replaceAll(/%YYYYMMDD/g, this.date.getFullYear().toString() + (this.date.getMonth() + 1).toString().padStart(2, "0") + this.date.getDate().toString().padStart(2, "0"));
     mjml = mjml.replaceAll(/%Month/g, this.date.toLocaleString('default', { month: 'long' }));
-    mjml = mjml.replaceAll(/%DD/g, this.date.getDate().toString().padStart(2, "0"))
+    mjml = mjml.replaceAll(/%DD/g, this.date.getDate().toString());
     mjml = mjml.replaceAll(/%YYYY/g, this.date.getFullYear());
     mjml = mjml.replaceAll(/%Weekday/g, this.date.toLocaleDateString('default', { weekday: 'long' }))
     mjml = mjml.replaceAll("%Description", this.emailPreview);
