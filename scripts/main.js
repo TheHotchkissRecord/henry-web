@@ -289,9 +289,9 @@ darkMode = window.matchMedia("(prefers-color-scheme: dark)").matches;
 document.getElementById("dark-button").addEventListener("click", function() {
   document.body.classList.toggle('dark');
   if (darkMode) {
-    document.getElementById('color-scheme').href = 'styles/tomorrow-night.css';
+    document.getElementById('color-scheme').href = 'styles/tomorrow-twilight.css';
   } else {
-    document.getElementById('color-scheme').href = 'styles/github.css';
+    document.getElementById('color-scheme').href = 'styles/tomorrow-day.css';
   }
   darkMode = !darkMode;
 });

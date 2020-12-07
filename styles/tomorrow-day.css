@@ -92,39 +92,49 @@ pre .preloader div{
   animation-fill-mode:forwards
 }
 pre{
-  background-color:#000;
+  background-color:#eee;
   word-wrap:break-word;
   margin:0px;
   padding:10px;
-  color:#fff;
+  color:#333;
   font-size:14px;
   margin-bottom:20px
 }
 pre,code{
   font-family:'Monaco', 'Menlo', courier, monospace
 }
-pre{
-  background-color:#1d1f21;
-  color:#c5c8c6
-}
 pre .comment{
-  color:#969896
+  color:#998
 }
-pre .variable.global,pre .variable.class,pre .variable.instance{
-  color:#c66
+pre .support{
+  color:#0086B3
 }
-pre .constant.numeric,pre .constant.language,pre .constant.hex-color,pre .keyword.unit{
-  color:#de935f
+pre .tag,pre .tag-name{
+  color:navy
 }
-pre .constant,pre .entity,pre .entity.class,pre .support{
-  color:#f0c674
+pre .keyword,pre .css-property,pre .vendor-fix,pre .sass,pre .class,pre .id,pre .css-value,pre .entity.function,pre .storage.function{
+  font-weight:bold
 }
-pre .constant.symbol,pre .string{
-  color:#b5bd68
+pre .css-property,pre .css-value,pre .vendor-fix,pre .support.namespace{
+  color:#333
 }
-pre .entity.function,pre .support.css-property,pre .selector{
-  color:#81a2be
+pre .constant.numeric,pre .keyword.unit,pre .hex-color{
+  font-weight:normal;
+  color:#099
 }
-pre .keyword,pre .storage{
-  color:#b294bb
+pre .entity.class{
+  color:#458
+}
+pre .entity.id,pre .entity.function{
+  color:#900
+}
+pre .attribute,pre .variable{
+  color:teal
+}
+pre .string,pre .support.value{
+  font-weight:normal;
+  color:#d14
+}
+pre .regexp{
+  color:#009926
 }

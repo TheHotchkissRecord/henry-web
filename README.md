@@ -19,9 +19,6 @@ To-do:
 - [x] copy to clipboard button
 - [x] display an image preview
 - [x] show newsletter date in now editing: box
-- [ ] next/previous article buttons
 - [x] better css
 - [x] settings: dark mode
-- [ ] uniform code css
-- [ ] auto compile mjml code?
-- [ ] optimize the code - we don't need to refresh everything after one change
+- [x] uniform code css

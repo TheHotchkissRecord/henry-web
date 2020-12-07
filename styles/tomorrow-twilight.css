@@ -92,32 +92,20 @@ pre .preloader div{
   animation-fill-mode:forwards
 }
 pre{
-  border:1px solid #ccc;
+  background-color:#000;
   word-wrap:break-word;
-  padding:6px 10px;
-  line-height:19px;
+  margin:0px;
+  padding:10px;
+  color:#fff;
+  font-size:14px;
   margin-bottom:20px
 }
-pre code{
-  border:0;
-  padding:0;
-  margin:0;
-  border-radius:0
-}
-code{
-  border:1px solid #eaeaea;
-  margin:0px 2px;
-  padding:0px 5px;
-  font-size:12px
-}
 pre,code{
-  font-family:Consolas, 'Liberation Mono', Courier, monospace;
-  color:#333;
-  background:#f8f8f8;
-  border-radius:3px
+  font-family:'Monaco', 'Menlo', courier, monospace
 }
-pre,pre code{
-  font-size:13px
+pre{
+  background-color:#1d1f21;
+  color:#c5c8c6
 }
 pre .comment{
   color:#998
@@ -126,7 +114,7 @@ pre .support{
   color:#0086B3
 }
 pre .tag,pre .tag-name{
-  color:navy
+  color:#81a2be
 }
 pre .keyword,pre .css-property,pre .vendor-fix,pre .sass,pre .class,pre .id,pre .css-value,pre .entity.function,pre .storage.function{
   font-weight:bold
