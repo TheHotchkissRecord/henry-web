@@ -138,3 +138,7 @@ button:hover {
 #main button:active {
   transform: translateY(0.2em);
 }
+
+#next-button {
+  float: right;
+}

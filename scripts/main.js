@@ -140,6 +140,21 @@ document.getElementById("delete-button").addEventListener("click", function () {
   fillAll();
 });
 
+document.getElementById("previous-button").addEventListener("click", function () {
+  previousPos = theNewsletter.articleOrder.indexOf(theArticleId) - 1;
+  if (previousPos >= 0) {
+    theArticleId = theNewsletter.articleOrder[previousPos];
+    fillFields();
+  }
+});
+document.getElementById("next-button").addEventListener("click", function () {
+  nextPos = theNewsletter.articleOrder.indexOf(theArticleId) + 1;
+  if (nextPos < theNewsletter.articleOrder.length) {
+    theArticleId = theNewsletter.articleOrder[nextPos];
+    fillFields();
+  }
+});
+
 // auto-fill articles
 document.getElementById("auto-fill-button").addEventListener("click", async function() {
   var art = await scrape(document.getElementById("article-link").value);
