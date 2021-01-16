@@ -34,8 +34,8 @@ a {
   color: #457b9d;
 }
 
-#main {
-  margin-top: 3.25em;
+.hidden {
+  display: none;
 }
 
 #one, #two, #three:not(#code-box) {

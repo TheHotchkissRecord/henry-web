@@ -314,3 +314,16 @@ document.getElementById("dark-button").addEventListener("click", function() {
 if (darkMode) {
   document.getElementById("dark-button").click();
 }
+
+// move the main div down to adjust for tab size changing
+function moveMain() {
+  document.getElementById("main").style.marginTop = document.getElementsByClassName("tab")[0].offsetHeight + "px";
+}
+new ResizeObserver(moveMain).observe(document.getElementsByClassName("tab")[0]);
+moveMain();
+
+// hide or show email info div
+document.getElementById("hide-button").addEventListener("click", () => {
+  document.getElementById("email-info").classList.toggle("hidden");
+  document.getElementById("hide-button").innerHTML = document.getElementById("hide-button").innerHTML === "Hide Intro/Preview/Errata" ? "Show Intro/Preview/Errata" : "Hide Intro/Preview/Errata";
+});
