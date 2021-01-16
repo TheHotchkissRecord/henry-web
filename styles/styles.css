@@ -38,6 +38,10 @@ a {
   display: none;
 }
 
+.invalid {
+  color: red;
+}
+
 #one, #two, #three:not(#code-box) {
   padding: 0.5em;
 }

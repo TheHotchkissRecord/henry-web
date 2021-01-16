@@ -73,9 +73,22 @@ function fillFields() {
   if (isUrl(theArticle.thumbnailLink)) {
     document.getElementById("image-preview-box").style.display = "block";
     document.getElementById("image-preview").src = theArticle.thumbnailLink;
+    document.getElementById("invalid-thumbnail").classList.add("hidden");
   } else {
     document.getElementById("image-preview-box").style.display = "none";
+    if (theArticle.thumbnailLink !== "") {
+      document.getElementById("invalid-thumbnail").classList.remove("hidden");
+    } else {
+      document.getElementById("invalid-thumbnail").classList.add("hidden");
+    }
   }
+  if (isUrl(theArticle.articleLink)) {
+    document.getElementById("invalid-link").classList.add("hidden");
+  } else if (theArticle.articleLink !== "") {
+      document.getElementById("invalid-link").classList.remove("hidden");
+  } else {
+      document.getElementById("invalid-link").classList.add("hidden");
+  };
 }
 
 // update newsletter fields
