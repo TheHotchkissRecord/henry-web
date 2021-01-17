@@ -1,4 +1,8 @@
 Split(['#one', '#two', '#three']);
+var threeSplit = Split(['#top', '#mid', '#bot'], {
+  sizes: [70, 15, 15],
+  direction: 'vertical',
+});
 
 // default newsletter onload
 var news = new Newsletter();
@@ -306,6 +310,70 @@ dragula([document.getElementById("articles-list")]).on('drop', function(el, targ
   }
   theNewsletter.move(Number(el.id), newPosition)
   fillAll();
+});
+
+// refresh the html preview
+document.getElementById("refresh-html-button").addEventListener("click", async function () {
+  var username = "0b94397d-c3de-4b1b-962b-8ff53b2083fe";
+  var password = "d98bd758-f1f5-4749-83be-c9f816b590f9";
+  let response = await fetch("https://cors.reeceyang.workers.dev/?https://api.mjml.io/v1/render", {
+      method: 'POST',
+      headers: {
+          'Authorization': "Basic " + btoa(username+":"+password)
+      },
+      body: JSON.stringify({mjml:theNewsletter.toMJML()})
+  });
+
+  let result = await response.json();
+  document.getElementById("html-preview-box").innerHTML = result.html;
+  Rainbow.color(sanitize(result.html), 'html', function(highlightedCode) {
+    document.getElementById("html-code-box").innerHTML = highlightedCode;
+  });
+});
+
+// copy html preview
+document.getElementById("copy-preview-button").addEventListener("click", () => {
+  var range = document.createRange();
+  range.selectNode(document.getElementById("html-preview-box"));
+  window.getSelection().removeAllRanges();
+  window.getSelection().addRange(range);
+  document.execCommand("copy");
+});
+
+// download html code
+document.getElementById("download-html-button").addEventListener("click", function() {
+  download("index.html", document.getElementById("html-preview-box").innerHTML);
+});
+
+// copy html code
+document.getElementById("copy-html-button").addEventListener("click", function() {
+  const textArea = document.createElement('textarea');
+  textArea.textContent = document.getElementById("html-preview-box").innerHTML;
+  document.body.append(textArea);
+  textArea.select();
+  document.execCommand("copy");
+  textArea.parentNode.removeChild(textArea);
+});
+
+// hide or show preview div
+document.getElementById("show-preview-button").addEventListener("click", () => {
+  document.getElementById("html-preview-box").classList.toggle("hidden");
+  threeSplit.collapse(0);
+  document.getElementById("show-preview-button").innerHTML = document.getElementById("show-preview-button").innerHTML === "Hide Preview" ? "Show Preview" : "Hide Preview";
+});
+
+// hide or show html code div
+document.getElementById("show-html-button").addEventListener("click", () => {
+  document.getElementsByClassName("rainbow-show")[0].classList.toggle("hidden");
+  threeSplit.collapse(1);
+  document.getElementById("show-html-button").innerHTML = document.getElementById("show-html-button").innerHTML === "Hide HTML Code" ? "Show HTML Code" : "Hide HTML Code";
+});
+
+// hide or show html code div
+document.getElementById("show-mjml-button").addEventListener("click", () => {
+  document.getElementsByClassName("rainbow-show")[1].classList.toggle("hidden");
+  threeSplit.collapse(2);
+  document.getElementById("show-mjml-button").innerHTML = document.getElementById("show-mjml-button").innerHTML === "Hide MJML Code" ? "Show MJML Code" : "Hide MJML Code";
 });
 
 // startup

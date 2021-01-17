@@ -80,11 +80,28 @@
     </div>
 
     <div class="split" id="three">
-      <button id="download-mjml-button">Download MJML</button>
-      <button id="copy-mjml-button">Copy to Clipboard</button>
-      Paste code into <a href="https://mjml.io/try-it-live" target="_blank">mjml.io/try-it-live</a> to compile.
-      <br><br>
-      <pre><code id="code-box" readonly data-language="html"></code></pre>
+      <div class="split" id="top">
+        <button id="show-preview-button">Hide Preview</button>
+        <button id="refresh-html-button">Refresh</button>
+        <button id="copy-preview-button">Copy to Clipboard</button>
+        <button id="download-html-button">Download HTML</button>
+        <br>
+        <div id="html-preview-box"></div>
+      </div>
+      <div class="split" id="mid">
+        <button id="show-html-button">Hide HTML Code</button>
+        <button id="copy-html-button">Copy to Clipboard</button>
+        <pre><code id="html-code-box" readonly data-language="html"></code></pre>
+      </div>
+      <div class="split" id="bot">
+        <button id="show-mjml-button">Hide MJML Code</button>
+        <button id="download-mjml-button">Download MJML</button>
+        <button id="copy-mjml-button">Copy to Clipboard</button>
+        <!-- Paste code into <a href="https://mjml.io/try-it-live" target="_blank">mjml.io/try-it-live</a> to compile. -->
+        <br><br>
+        <pre><code id="code-box" readonly data-language="html"></code></pre>
+      </div>
+
     </div>
   </div>
 

@@ -46,6 +46,28 @@ a {
   padding: 0.5em;
 }
 
+#three {
+  display: flex;
+  flex-direction: column;
+}
+
+#mid, #bot {
+  padding-top: 0.5em;
+}
+
+#mid {
+  margin-bottom: 0.5em;
+}
+
+#html-preview-box {
+  height: 90%;
+  overflow: auto;
+}
+
+.rainbow-show {
+  height: 90%;
+}
+
 .gutter {
   background-color: var(--background-darker);
 
@@ -56,6 +78,11 @@ a {
 .gutter.gutter-horizontal {
   background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAUAAAAeCAYAAADkftS9AAAAIklEQVQoU2M4c+bMfxAGAgYYmwGrIIiDjrELjpo5aiZeMwF+yNnOs5KSvgAAAABJRU5ErkJggg==');
   cursor: col-resize;
+}
+
+.gutter.gutter-vertical {
+  background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAB4AAAAFAQMAAABo7865AAAABlBMVEVHcEzMzMzyAv2sAAAAAXRSTlMAQObYZgAAABBJREFUeF5jOAMEEAIEEFwAn3kMwcB6I2AAAAAASUVORK5CYII=');
+  cursor: row-resize;
 }
 
 .split {
