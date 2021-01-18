@@ -355,24 +355,44 @@ document.getElementById("copy-html-button").addEventListener("click", function()
   textArea.parentNode.removeChild(textArea);
 });
 
+// resize the boxes correctly
+function toggleThreeSplit() {
+  var hiddenBoxes = [document.getElementById("html-preview-box").classList[0] === "hidden",
+    document.getElementsByClassName("rainbow-show")[0].classList[1] === "hidden",
+    document.getElementsByClassName("rainbow-show")[2].classList[1] === "hidden"];
+  if (hiddenBoxes[0] === hiddenBoxes[1] && hiddenBoxes[1] === hiddenBoxes[2]) {
+    threeSplit.setSizes([33, 33, 33]);
+  } else if (hiddenBoxes.filter((k) => {return k === false;}).length == 1){
+    // only one hidden
+    threeSplit.setSizes([!hiddenBoxes[0] ? 90 : 10,
+      !hiddenBoxes[1] ? 90 : 10,
+      !hiddenBoxes[2] ? 90 : 10]);
+  } else {
+    // two hidden
+    threeSplit.setSizes([!hiddenBoxes[0] ? 45 : 10,
+      !hiddenBoxes[1] ? 45 : 10,
+      !hiddenBoxes[2] ? 45 : 10]);
+  }
+}
+
 // hide or show preview div
 document.getElementById("show-preview-button").addEventListener("click", () => {
   document.getElementById("html-preview-box").classList.toggle("hidden");
-  threeSplit.collapse(0);
+  toggleThreeSplit();
   document.getElementById("show-preview-button").innerHTML = document.getElementById("show-preview-button").innerHTML === "Hide Preview" ? "Show Preview" : "Hide Preview";
 });
 
 // hide or show html code div
 document.getElementById("show-html-button").addEventListener("click", () => {
   document.getElementsByClassName("rainbow-show")[0].classList.toggle("hidden");
-  threeSplit.collapse(1);
+  toggleThreeSplit();
   document.getElementById("show-html-button").innerHTML = document.getElementById("show-html-button").innerHTML === "Hide HTML Code" ? "Show HTML Code" : "Hide HTML Code";
 });
 
 // hide or show html code div
 document.getElementById("show-mjml-button").addEventListener("click", () => {
-  document.getElementsByClassName("rainbow-show")[1].classList.toggle("hidden");
-  threeSplit.collapse(2);
+  document.getElementsByClassName("rainbow-show")[2].classList.toggle("hidden");
+  toggleThreeSplit();
   document.getElementById("show-mjml-button").innerHTML = document.getElementById("show-mjml-button").innerHTML === "Hide MJML Code" ? "Show MJML Code" : "Hide MJML Code";
 });
 

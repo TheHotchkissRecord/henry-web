@@ -46,7 +46,7 @@ a {
   padding: 0.5em;
 }
 
-#three {
+#three, #mid, #top {
   display: flex;
   flex-direction: column;
 }
@@ -55,17 +55,8 @@ a {
   padding-top: 0.5em;
 }
 
-#mid {
-  margin-bottom: 0.5em;
-}
-
 #html-preview-box {
-  height: 90%;
   overflow: auto;
-}
-
-.rainbow-show {
-  height: 90%;
 }
 
 .gutter {
