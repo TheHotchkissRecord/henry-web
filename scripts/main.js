@@ -1,6 +1,5 @@
 Split(['#one', '#two', '#three']);
 var threeSplit = Split(['#top', '#mid', '#bot'], {
-  sizes: [70, 15, 15],
   direction: 'vertical',
 });
 
@@ -398,7 +397,10 @@ document.getElementById("show-mjml-button").addEventListener("click", () => {
 
 // startup
 fillAll();
-
+setTimeout(() => {
+  document.getElementById("show-html-button").click();
+  document.getElementById("show-mjml-button").click();
+}, 200);
 // dark mode
 darkMode = window.matchMedia("(prefers-color-scheme: dark)").matches;
 
