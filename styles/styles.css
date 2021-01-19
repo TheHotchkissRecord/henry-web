@@ -46,7 +46,7 @@ a {
   padding: 0.5em;
 }
 
-#three, #mid, #top {
+#three, #mid, #top, #bot {
   display: flex;
   flex-direction: column;
 }
