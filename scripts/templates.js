@@ -1,6 +1,35 @@
-// go to https://onlinetexttools.com/escape-text to update
+const ARTICLE_TEXT = `<!-- Start of an article preview -->
+<!-- Thumbnail <mj-section full-width="full-width" background-color="#ffffff" padding-bottom="0">
+  <mj-column width="100%">
+    <mj-image src="%Thumbnail" width="600px" alt="" padding="0" href="%Link" />
+  </mj-column>
+</mj-section> Thumbnail -->
+<!-- Start of text -->
+<mj-section background-color="#ffffff" padding-left="15px" padding-right="15px">
+  <mj-column width="100%">
+    <!-- Credit <mj-text color="#637381" font-size="12px" align=right padding-right="5px">
+      %Credit
+    </mj-text> Credit -->
+    <!-- Caption <mj-text color="#637381" font-size="12px" align=left padding-left="5px">
+      <i>%Caption</i>
+    </mj-text> Caption -->
+    <mj-text color="#212b35" font-weight="bold" font-size="20px">
+      %Title
+    </mj-text>
+    <mj-text color="#212b35" font-size="12px" height=15px font-weight="bold">
+      %Author
+    </mj-text>
+    <mj-text color="#637381" font-size="16px">
+      %Preview
+    </mj-text>
+    <mj-button background-color="#202F5A" align="center" color="#ffffff" font-size="17px" font-weight="bold" href="%Link" width="300px">
+      Continue Reading
+    </mj-button>
+  </mj-column>
+</mj-section>
+<!-- End of text-->
+<!-- End of an article -->`;
 
-const ARTICLE_TEXT = "<!-- Start of an article preview -->\n<!-- Thumbnail <mj-section full-width=\"full-width\" background-color=\"#ffffff\" padding-bottom=\"0\">\n  <mj-column width=\"100%\">\n    <mj-image src=\"%Thumbnail\" width=\"600px\" alt=\"\" padding=\"0\" href=\"%Link\" />\n  </mj-column>\n</mj-section> Thumbnail -->\n<!-- Start of text -->\n<mj-section background-color=\"#ffffff\" padding-left=\"15px\" padding-right=\"15px\">\n  <mj-column width=\"100%\">\n    <!-- Credit <mj-text color=\"#637381\" font-size=\"12px\" align=right padding-right=\"5px\">\n      %Credit\n    </mj-text> Credit -->\n    <!-- Caption <mj-text color=\"#637381\" font-size=\"12px\" align=left padding-left=\"5px\">\n      <i>%Caption</i>\n    </mj-text> Caption -->\n    <mj-text color=\"#212b35\" font-weight=\"bold\" font-size=\"20px\">\n      %Title\n    </mj-text>\n    <mj-text color=\"#212b35\" font-size=\"12px\" height=15px font-weight=\"bold\">\n      %Author\n    </mj-text>\n    <mj-text color=\"#637381\" font-size=\"16px\">\n      %Preview\n    </mj-text>\n    <mj-button background-color=\"#202F5A\" align=\"center\" color=\"#ffffff\" font-size=\"17px\" font-weight=\"bold\" href=\"%Link\" width=\"300px\">\n      Continue Reading\n    </mj-button>\n  </mj-column>\n</mj-section>\n<!-- End of text-->\n<!-- End of an article -->\n"
 
 const MAIN_TEXT = `<mjml>
   <mj-head>
@@ -26,7 +55,7 @@ const MAIN_TEXT = `<mjml>
     <!-- BODY CONTENT -->
     <mj-section full-width="full-width" background-color="#02174c" padding-bottom="0">
       <mj-column width="100%">
-        <mj-image src="https://graphics.thehr.org/newsletter/spring_2020_header.png" alt="" align="center" width="800px" />
+        <mj-image src="https://thehotchkissrecord.github.io/graphics/newsletter/spring_2020_header.png" alt="" align="center" width="800px" />
         <mj-text color="#ffffff" font-weight="bold" align="center" text-transform="uppercase" font-size="16px" letter-spacing="1px" padding-top="30px">
           <!-- Date -->
           %Weekday, %Month %DD, %YYYY
@@ -58,7 +87,7 @@ const MAIN_TEXT = `<mjml>
           </mj-text>
             %Errata
           <mj-text color="#445566" font-size="11px" font-weight="bold">
-            <a href="https://thehr.org/corrections">Issue a correction for a previous issue.</a><br/>
+            <a href="https://forms.gle/s7wttaEXBS6Tchek7">Issue a correction for a previous issue.</a><br/>
             <a href="https://hotchkissrecord.org/errata/">View an up-to-date list of the errors we are currently aware of.</a>
           </mj-text>
           <mj-text color="#212b35" font-weight="bold" font-size="20px">
@@ -75,11 +104,11 @@ const MAIN_TEXT = `<mjml>
             </mj-social-element>
           </mj-social>
           <mj-text color="#445566" font-size="11px" font-weight="bold" align="center">
-            <a href="https://newsletter.thehr.org/%YYYYMMDD/index.html">View this email in your browser.</a>
+            <a href="https://thehotchkissrecord.github.io/newsletter/%YYYYMMDD/index.html">View this email in your browser.</a>
           </mj-text>
           <mj-text color="#445566" font-size="11px" font-weight="bold" align="center">
             Were you sent this briefing by a friend?
-            <a href="https://subscribe.thehr.org/">Subscribe here.</a>
+            <a href="https://thehotchkissrecord.github.io/subscription/">Subscribe here.</a>
           </mj-text>
           <mj-text color="#445566" font-size="11px" align="center" line-height="16px">
             Copyright © %YYYY The Hotchkiss Record, All rights reserved. You are receiving this email because you are a member of the Hotchkiss community, or because you signed up on our website.
@@ -99,5 +128,4 @@ const MAIN_TEXT = `<mjml>
       </mj-section>
     </mj-wrapper>
   </mj-body>
-</mjml>
-`
+</mjml>`;
