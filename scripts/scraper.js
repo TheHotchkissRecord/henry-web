@@ -4,7 +4,7 @@ var parser = new DOMParser();
 async function scrape(url) {
   let response = await fetch("https://cors.reeceyang.workers.dev/?" + url);
   let text = await response.text();
-  var articleHtml = parser.parseFromString(text, 'text/html');
+  var articleHtml = parser.parseFromString(text, "text/html");
 
   var art = new Article();
   art.title = unsanitize(articleHtml.getElementById("storyheadline").innerHTML);

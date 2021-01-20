@@ -34,7 +34,7 @@ function Article() {
     mjml = mjml.replaceAll("%Link", this.articleLink);
     //console.log(mjml)
     return mjml;
-  }
+  };
 }
 
 function Newsletter() {
@@ -51,7 +51,7 @@ function Newsletter() {
     article.id = this.highestID;
     this.articles.push(article);
     this.articleOrder.push(article.id);
-  }
+  };
 
   this.move = function(id, newPosition) {
     oldPosition = this.articleOrder.indexOf(id);
@@ -60,7 +60,7 @@ function Newsletter() {
     } else {
       throw "Article ID not found in articleOrder";
     }
-  }
+  };
 
   // returns position of former article in articleOrder
   this.delete = function(id) {
@@ -70,10 +70,10 @@ function Newsletter() {
       this.articleOrder.splice(orderPosition, 1);
       this.articles.splice(articlesPosition, 1);
     } else {
-      throw "Article ID not found in either articleOrder or articles"
+      throw "Article ID not found in either articleOrder or articles";
     }
     return orderPosition;
-  }
+  };
 
   this.toMJML = function() {
     articlesMJML = "";
@@ -83,21 +83,21 @@ function Newsletter() {
     mjml = MAIN_TEXT;
     // might not work in Internet Explorer
     mjml = mjml.replaceAll(/%YYYYMMDD/g, this.date.getFullYear().toString() + (this.date.getMonth() + 1).toString().padStart(2, "0") + this.date.getDate().toString().padStart(2, "0"));
-    mjml = mjml.replaceAll(/%Month/g, this.date.toLocaleString('default', { month: 'long' }));
+    mjml = mjml.replaceAll(/%Month/g, this.date.toLocaleString("default", { month: "long" }));
     mjml = mjml.replaceAll(/%DD/g, this.date.getDate().toString());
     mjml = mjml.replaceAll(/%YYYY/g, this.date.getFullYear());
-    mjml = mjml.replaceAll(/%Weekday/g, this.date.toLocaleDateString('default', { weekday: 'long' }))
+    mjml = mjml.replaceAll(/%Weekday/g, this.date.toLocaleDateString("default", { weekday: "long" }));
     mjml = mjml.replaceAll("%Description", this.emailPreview);
     mjml = mjml.replaceAll("%Editorial", this.intro);
     mjml = mjml.replaceAll("%Errata", this.errata);
     mjml = mjml.replaceAll("%Articles", articlesMJML);
 
     return mjml;
-  }
+  };
 
   this.yyyymmdd = function() {
     return this.date.getFullYear().toString() + (this.date.getMonth() + 1).toString().padStart(2, "0") + this.date.getDate().toString().padStart(2, "0");
-  }
+  };
 }
 
 function newsletterFromJSON(jsonData) {

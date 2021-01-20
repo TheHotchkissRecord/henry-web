@@ -1,7 +1,5 @@
-Split(['#one', '#two', '#three']);
-var threeSplit = Split(['#top', '#mid', '#bot'], {
-  direction: 'vertical',
-});
+Split(["#one", "#two", "#three"]);
+var threeSplit = Split(["#top", "#mid", "#bot"], {direction: "vertical"});
 
 // default newsletter onload
 var news = new Newsletter();
@@ -27,7 +25,7 @@ var theArticleId = 0;
 // do we actually need this function? sequential search
 function findArticleById(theId) {
   for (var i = 0; i < theNewsletter.articleOrder.length; i++) {
-    if (theNewsletter.articles[i].id == theId) {
+    if (theNewsletter.articles[i].id === theId) {
       return i;
     }
   }
@@ -51,7 +49,7 @@ function listArticles() {
       fillFields();
     });
 
-    listBox.appendChild(articleP)
+    listBox.appendChild(articleP);
   }
 }
 
@@ -88,15 +86,15 @@ function fillFields() {
   if (isUrl(theArticle.articleLink)) {
     document.getElementById("invalid-link").classList.add("hidden");
   } else if (theArticle.articleLink !== "") {
-      document.getElementById("invalid-link").classList.remove("hidden");
+    document.getElementById("invalid-link").classList.remove("hidden");
   } else {
-      document.getElementById("invalid-link").classList.add("hidden");
-  };
+    document.getElementById("invalid-link").classList.add("hidden");
+  }
 }
 
 // update newsletter fields
-function updateNewsletter() {
-  articlePos = findArticleById(theArticleId);
+function updateNewsletter () {
+  var articlePos = findArticleById(theArticleId);
   theNewsletter.articles[articlePos].title = document.getElementById("title").value;
   theNewsletter.articles[articlePos].articleLink = document.getElementById("article-link").value;
   theNewsletter.articles[articlePos].byline = document.getElementById("byline").value;
@@ -107,7 +105,7 @@ function updateNewsletter() {
 
   theNewsletter.emailPreview = document.getElementById("email-preview").value;
   theNewsletter.intro = document.getElementById("email-intro").value;
-  theNewsletter.errata = document.getElementById("errata").value
+  theNewsletter.errata = document.getElementById("errata").value;
 
   fillAll();
 }
@@ -125,7 +123,7 @@ document.getElementById("errata").addEventListener("input", updateNewsletter);
 
 // update code box
 function updateCode() {
-  Rainbow.color(sanitize(theNewsletter.toMJML()), 'html', function(highlightedCode) {
+  Rainbow.color(sanitize(theNewsletter.toMJML()), "html", function(highlightedCode) {
     document.getElementById("code-box").innerHTML = highlightedCode;
   });
 }
@@ -201,28 +199,28 @@ document.getElementById("export-button").addEventListener("click", function() {
 });
 // using code from https://stackoverflow.com/questions/16215771/how-to-open-select-file-dialog-via-js
 document.getElementById("open-button").addEventListener("click", function() {
-  var input = document.createElement('input');
-  input.type = 'file';
+  var input = document.createElement("input");
+  input.type = "file";
 
   input.onchange = e => {
-     // getting a hold of the file reference
-     var file = e.target.files[0];
-     // setting up the reader
-     var reader = new FileReader();
-     reader.readAsText(file,'UTF-8');
-     // here we tell the reader what to do when it's done reading...
-     reader.onload = readerEvent => {
-        var content = readerEvent.target.result; // this is the content!
-        theNewsletter = newsletterFromJSON(content);
-        fillAll();
-     }
-  }
+    // getting a hold of the file reference
+    var file = e.target.files[0];
+    // setting up the reader
+    var reader = new FileReader();
+    reader.readAsText(file,"UTF-8");
+    // here we tell the reader what to do when it's done reading...
+    reader.onload = readerEvent => {
+      var content = readerEvent.target.result; // this is the content!
+      theNewsletter = newsletterFromJSON(content);
+      fillAll();
+    };
+  };
   input.click();
 });
 
 // copy mjml to clipboard
 document.getElementById("copy-mjml-button").addEventListener("click", function() {
-  const textArea = document.createElement('textarea');
+  const textArea = document.createElement("textarea");
   textArea.textContent = theNewsletter.toMJML();
   document.body.append(textArea);
   textArea.select();
@@ -238,25 +236,25 @@ document.getElementById("date-button").addEventListener("click", function() {
   var year, month, day;
   while (true) {
     year = prompt("Enter the year (yyyy):", "2020");
-    if (year == null) {
+    if (year === null) {
       return;
     }
     if (!(isNaN(year) || Number(year) < 0)) {
       break;
     }
   }
-  while(true) {
+  while (true) {
     month = prompt("Enter the month (mm):");
-    if (month == null) {
+    if (month === null) {
       return;
     }
     if (!(isNaN(month) || Number(month) > 12 || Number(month) < 1)) {
       break;
     }
   }
-  while(true) {
+  while (true) {
     day = prompt("Enter the day (dd):");
-    if (day == null) {
+    if (day === null) {
       return;
     }
     if (!(isNaN(day) || Number(day) > 31 || Number(day) < 1)) {
@@ -276,7 +274,7 @@ document.getElementById("new-news-button").addEventListener("click", function() 
   document.getElementById("date-button").click();
   while (true) {
     numArticles = prompt("Number of articles:");
-    if (numArticles == null) {
+    if (numArticles === null) {
       return;
     }
     if (!(isNaN(numArticles) || Number(numArticles) < 0)) {
@@ -290,11 +288,11 @@ document.getElementById("new-news-button").addEventListener("click", function() 
 
 // ask before leaving
 window.onbeforeunload = function() {
-  return 'Changes you made may not be saved.';
+  return "Changes you made may not be saved.";
 };
 
 // drag and drop to move articles
-dragula([document.getElementById("articles-list")]).on('drop', function(el, target, source, sibling) {
+dragula([document.getElementById("articles-list")]).on("drop", function(el, target, source, sibling) {
   var newPosition;
   if (sibling != null) {
     sibPos = theNewsletter.articleOrder.indexOf(Number(sibling.id));
@@ -307,7 +305,7 @@ dragula([document.getElementById("articles-list")]).on('drop', function(el, targ
   } else {
     newPosition = theNewsletter.articleOrder.length - 1;
   }
-  theNewsletter.move(Number(el.id), newPosition)
+  theNewsletter.move(Number(el.id), newPosition);
   fillAll();
 });
 
@@ -316,16 +314,16 @@ document.getElementById("refresh-html-button").addEventListener("click", async f
   var username = "0b94397d-c3de-4b1b-962b-8ff53b2083fe";
   var password = "d98bd758-f1f5-4749-83be-c9f816b590f9";
   let response = await fetch("https://cors.reeceyang.workers.dev/?https://api.mjml.io/v1/render", {
-      method: 'POST',
-      headers: {
-          'Authorization': "Basic " + btoa(username+":"+password)
-      },
-      body: JSON.stringify({mjml:theNewsletter.toMJML()})
+    method: "POST",
+    headers: {
+      "Authorization": "Basic " + btoa(username+":"+password)
+    },
+    body: JSON.stringify({mjml:theNewsletter.toMJML()})
   });
 
   let result = await response.json();
   document.getElementById("html-preview-box").innerHTML = result.html;
-  Rainbow.color(sanitize(result.html), 'html', function(highlightedCode) {
+  Rainbow.color(sanitize(result.html), "html", function(highlightedCode) {
     document.getElementById("html-code-box").innerHTML = highlightedCode;
   });
 });
@@ -346,7 +344,7 @@ document.getElementById("download-html-button").addEventListener("click", functi
 
 // copy html code
 document.getElementById("copy-html-button").addEventListener("click", function() {
-  const textArea = document.createElement('textarea');
+  const textArea = document.createElement("textarea");
   textArea.textContent = document.getElementById("html-preview-box").innerHTML;
   document.body.append(textArea);
   textArea.select();
@@ -361,7 +359,7 @@ function toggleThreeSplit() {
     document.getElementsByClassName("rainbow-show")[2].classList[1] === "hidden"];
   if (hiddenBoxes[0] === hiddenBoxes[1] && hiddenBoxes[1] === hiddenBoxes[2]) {
     threeSplit.setSizes([33, 33, 33]);
-  } else if (hiddenBoxes.filter((k) => {return k === false;}).length == 1){
+  } else if (hiddenBoxes.filter((k) => {return k === false;}).length === 1){
     // only one hidden
     threeSplit.setSizes([!hiddenBoxes[0] ? 90 : 10,
       !hiddenBoxes[1] ? 90 : 10,
@@ -405,11 +403,11 @@ setTimeout(() => {
 darkMode = window.matchMedia("(prefers-color-scheme: dark)").matches;
 
 document.getElementById("dark-button").addEventListener("click", function() {
-  document.body.classList.toggle('dark');
+  document.body.classList.toggle("dark");
   if (darkMode) {
-    document.getElementById('color-scheme').href = 'styles/tomorrow-twilight.css';
+    document.getElementById("color-scheme").href = "styles/tomorrow-twilight.css";
   } else {
-    document.getElementById('color-scheme').href = 'styles/tomorrow-day.css';
+    document.getElementById("color-scheme").href = "styles/tomorrow-day.css";
   }
   darkMode = !darkMode;
 });
