@@ -25,7 +25,7 @@ var theArticleId = 0;
 // do we actually need this function? sequential search
 function findArticleById(theId) {
   for (var i = 0; i < theNewsletter.articleOrder.length; i++) {
-    if (theNewsletter.articles[i].id === theId) {
+    if (theNewsletter.articles[i].id === Number(theId)) {
       return i;
     }
   }
