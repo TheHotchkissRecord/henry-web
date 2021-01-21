@@ -1,28 +1,52 @@
+"use strict";
+
 Split(["#one", "#two", "#three"]);
-var threeSplit = Split(["#top", "#mid", "#bot"], {direction: "vertical"});
+var threeSplit = Split(["#top", "#mid", "#bot"], {
+  direction: "vertical"
+});
 
 // default newsletter onload
-var news = new Newsletter();
-var art1 = new Article();
-var art2 = new Article();
-var art3 = new Article();
-var art4 = new Article();
-var art5 = new Article();
-art1.title = "Welcome to Henry!";
-art2.title = "Click titles to switch between articles.";
-art3.title = "Drag and drop to reorder articles.";
-art4.title = "Remember to export the newsletter JSON before leaving!";
-art5.title = "Have fun :)";
-news.add(art1);
-news.add(art2);
-news.add(art3);
-news.add(art4);
-news.add(art5);
+function getDefaultNewsletter() {
+  var news = new Newsletter();
+  var art1 = new Article();
+  var art2 = new Article();
+  var art3 = new Article();
+  var art4 = new Article();
+  var art5 = new Article();
+  art1.title = "Welcome to Henry!";
+  art2.title = "Click titles to switch between articles.";
+  art3.title = "Drag and drop to reorder articles.";
+  art4.title = "Remember to export the newsletter JSON before leaving!";
+  art5.title = "Have fun :)";
+  news.add(art1);
+  news.add(art2);
+  news.add(art3);
+  news.add(art4);
+  news.add(art5);
+  return news;
+}
 
-var theNewsletter = news;
+var theNewsletter = getDefaultNewsletter();
 var theArticleId = 0;
 
-// do we actually need this function? sequential search
+// FIXME: make these constants
+var articleBindings = {
+  "title": "title",
+  "article-link": "articleLink",
+  "byline": "byline",
+  "content-preview": "contentPreview",
+  "thumbnail-caption": "thumbnailCaption",
+  "thumbnail-link": "thumbnailLink",
+  "thumbnail-credit": "thumbnailCredit",
+};
+
+var infoBindings = {
+  "email-preview": "emailPreview",
+  "email-intro": "intro",
+  "errata": "errata"
+};
+
+// FIXME: do we actually need this function? sequential search
 function findArticleById(theId) {
   for (var i = 0; i < theNewsletter.articleOrder.length; i++) {
     if (theNewsletter.articles[i].id === theId) {
@@ -34,12 +58,12 @@ function findArticleById(theId) {
 
 // list out all the articles
 function listArticles() {
-  listBox = document.getElementById("articles-list");
+  var listBox = document.getElementById("articles-list");
   listBox.innerHTML = "";
   for (var i = 0; i < theNewsletter.articleOrder.length; i++) {
-    articleP = document.createElement("p");
+    var articleP = document.createElement("p");
 
-    theArticle = theNewsletter.articles[findArticleById(theNewsletter.articleOrder[i])];
+    var theArticle = theNewsletter.articles[findArticleById(theNewsletter.articleOrder[i])];
     articleP.id = theArticle.id;
     articleP.appendChild(document.createTextNode((i + 1) + ". " + theArticle.title));
 
@@ -55,71 +79,63 @@ function listArticles() {
 
 // populate article input fields and title
 function fillFields() {
-  theArticle = theNewsletter.articles[findArticleById(theArticleId)];
-  document.getElementById("title").value = theArticle.title;
-  document.getElementById("article-link").value = theArticle.articleLink;
-  document.getElementById("byline").value = theArticle.byline;
-  document.getElementById("content-preview").value = theArticle.contentPreview;
-  document.getElementById("thumbnail-caption").value = theArticle.thumbnailCaption;
-  document.getElementById("thumbnail-link").value = theArticle.thumbnailLink;
-  document.getElementById("thumbnail-credit").value = theArticle.thumbnailCredit;
-  document.getElementById("article-id").innerHTML = theArticleId;
+  var theArticle = theNewsletter.articles[findArticleById(theArticleId)];
 
+  for (var fieldId in articleBindings) {
+    document.getElementById(fieldId).value = theArticle[articleBindings[fieldId]];
+  }
+  document.getElementById("article-id").innerHTML = theArticleId;
   document.getElementById("now-editing").innerHTML = "Now editing: <b>" + theArticle.title + "</b> in <b>" + theNewsletter.yyyymmdd() + "</b>";
 
-  document.getElementById("email-preview").value = theNewsletter.emailPreview;
-  document.getElementById("email-intro").value = theNewsletter.intro;
-  document.getElementById("errata").value = theNewsletter.errata;
+  // show/hide image preview and invalid link warnings
+  var invalidThumbnail = document.getElementById("invalid-thumbnail");
+  var invalidLink = document.getElementById("invalid-link");
 
+  invalidThumbnail.classList.add("hidden");
   if (isUrl(theArticle.thumbnailLink)) {
     document.getElementById("image-preview-box").style.display = "block";
     document.getElementById("image-preview").src = theArticle.thumbnailLink;
-    document.getElementById("invalid-thumbnail").classList.add("hidden");
   } else {
     document.getElementById("image-preview-box").style.display = "none";
     if (theArticle.thumbnailLink !== "") {
-      document.getElementById("invalid-thumbnail").classList.remove("hidden");
-    } else {
-      document.getElementById("invalid-thumbnail").classList.add("hidden");
+      invalidThumbnail.classList.remove("hidden");
     }
   }
-  if (isUrl(theArticle.articleLink)) {
-    document.getElementById("invalid-link").classList.add("hidden");
-  } else if (theArticle.articleLink !== "") {
-    document.getElementById("invalid-link").classList.remove("hidden");
+  if (isUrl(theArticle.articleLink) || theArticle.articleLink === "") {
+    invalidLink.classList.add("hidden");
   } else {
-    document.getElementById("invalid-link").classList.add("hidden");
+    invalidLink.classList.remove("hidden");
   }
+}
+
+function fillInfo() {
+  for (var infoId in infoBindings) {
+    document.getElementById(infoId).value = theNewsletter[infoBindings[infoId]];
+  }
+}
+
+// FIXME: rewrite it so we don't need articlePos
+function updateNewsletterArticleField(fieldId, articlePos) {
+  theNewsletter.articles[articlePos][articleBindings[fieldId]] = document.getElementById(fieldId).value;
+  listArticles();
+  console.log("updated", fieldId, "in article at pos", articlePos);
+}
+
+function updateNewsletterInfoField(infoId) {
+  theNewsletter[infoBindings[infoId]] = document.getElementById(infoId).value;
 }
 
 // update newsletter fields
-function updateNewsletter () {
+function updateNewsletter() {
   var articlePos = findArticleById(theArticleId);
-  theNewsletter.articles[articlePos].title = document.getElementById("title").value;
-  theNewsletter.articles[articlePos].articleLink = document.getElementById("article-link").value;
-  theNewsletter.articles[articlePos].byline = document.getElementById("byline").value;
-  theNewsletter.articles[articlePos].contentPreview = document.getElementById("content-preview").value;
-  theNewsletter.articles[articlePos].thumbnailCaption = document.getElementById("thumbnail-caption").value;
-  theNewsletter.articles[articlePos].thumbnailLink = document.getElementById("thumbnail-link").value;
-  theNewsletter.articles[articlePos].thumbnailCredit = document.getElementById("thumbnail-credit").value;
-
-  theNewsletter.emailPreview = document.getElementById("email-preview").value;
-  theNewsletter.intro = document.getElementById("email-intro").value;
-  theNewsletter.errata = document.getElementById("errata").value;
-
-  fillAll();
+  for (fieldId in articleBindings) {
+    updateNewsletterArticleField(fieldId, articlePos);
+  }
+  for (infoId in infoBindings) {
+    updateNewsletterInfoField(infoId);
+  }
+  updateCode();
 }
-document.getElementById("title").addEventListener("input", updateNewsletter);
-document.getElementById("article-link").addEventListener("input", updateNewsletter);
-document.getElementById("byline").addEventListener("input", updateNewsletter);
-document.getElementById("content-preview").addEventListener("input", updateNewsletter);
-document.getElementById("thumbnail-caption").addEventListener("input", updateNewsletter);
-document.getElementById("thumbnail-link").addEventListener("input", updateNewsletter);
-document.getElementById("thumbnail-credit").addEventListener("input", updateNewsletter);
-document.getElementById("article-id").addEventListener("input", updateNewsletter);
-document.getElementById("email-preview").addEventListener("input", updateNewsletter);
-document.getElementById("email-intro").addEventListener("input", updateNewsletter);
-document.getElementById("errata").addEventListener("input", updateNewsletter);
 
 // update code box
 function updateCode() {
@@ -132,6 +148,7 @@ function updateCode() {
 function fillAll() {
   listArticles();
   fillFields();
+  fillInfo();
   updateCode();
 }
 
@@ -155,14 +172,14 @@ document.getElementById("delete-button").addEventListener("click", function () {
 });
 
 document.getElementById("previous-button").addEventListener("click", function () {
-  previousPos = theNewsletter.articleOrder.indexOf(theArticleId) - 1;
+  var previousPos = theNewsletter.articleOrder.indexOf(theArticleId) - 1;
   if (previousPos >= 0) {
     theArticleId = theNewsletter.articleOrder[previousPos];
     fillFields();
   }
 });
 document.getElementById("next-button").addEventListener("click", function () {
-  nextPos = theNewsletter.articleOrder.indexOf(theArticleId) + 1;
+  var nextPos = theNewsletter.articleOrder.indexOf(theArticleId) + 1;
   if (nextPos < theNewsletter.articleOrder.length) {
     theArticleId = theNewsletter.articleOrder[nextPos];
     fillFields();
@@ -197,6 +214,7 @@ document.getElementById("auto-fill-button").addEventListener("click", async func
 document.getElementById("export-button").addEventListener("click", function() {
   download(theNewsletter.yyyymmdd() + ".json", JSON.stringify(theNewsletter));
 });
+
 // using code from https://stackoverflow.com/questions/16215771/how-to-open-select-file-dialog-via-js
 document.getElementById("open-button").addEventListener("click", function() {
   var input = document.createElement("input");
@@ -227,6 +245,7 @@ document.getElementById("copy-mjml-button").addEventListener("click", function()
   document.execCommand("copy");
   textArea.parentNode.removeChild(textArea);
 });
+
 // download mjml code
 document.getElementById("download-mjml-button").addEventListener("click", function() {
   download(theNewsletter.yyyymmdd() + ".mjml", theNewsletter.toMJML());
@@ -379,28 +398,14 @@ document.getElementById("show-preview-button").addEventListener("click", () => {
   document.getElementById("show-preview-button").innerHTML = document.getElementById("show-preview-button").innerHTML === "Hide Preview" ? "Show Preview" : "Hide Preview";
 });
 
-// hide or show html code div
-document.getElementById("show-html-button").addEventListener("click", () => {
-  document.getElementsByClassName("rainbow-show")[0].classList.toggle("hidden");
-  toggleThreeSplit();
-  document.getElementById("show-html-button").innerHTML = document.getElementById("show-html-button").innerHTML === "Hide HTML Code" ? "Show HTML Code" : "Hide HTML Code";
+// hide or show email info div
+document.getElementById("hide-button").addEventListener("click", () => {
+  document.getElementById("email-info").classList.toggle("hidden");
+  document.getElementById("hide-button").innerHTML = document.getElementById("hide-button").innerHTML === "Hide Intro/Preview/Errata" ? "Show Intro/Preview/Errata" : "Hide Intro/Preview/Errata";
 });
 
-// hide or show html code div
-document.getElementById("show-mjml-button").addEventListener("click", () => {
-  document.getElementsByClassName("rainbow-show")[2].classList.toggle("hidden");
-  toggleThreeSplit();
-  document.getElementById("show-mjml-button").innerHTML = document.getElementById("show-mjml-button").innerHTML === "Hide MJML Code" ? "Show MJML Code" : "Hide MJML Code";
-});
-
-// startup
-fillAll();
-setTimeout(() => {
-  document.getElementById("show-html-button").click();
-  document.getElementById("show-mjml-button").click();
-}, 200);
 // dark mode
-darkMode = window.matchMedia("(prefers-color-scheme: dark)").matches;
+var darkMode = window.matchMedia("(prefers-color-scheme: dark)").matches;
 
 document.getElementById("dark-button").addEventListener("click", function() {
   document.body.classList.toggle("dark");
@@ -412,19 +417,47 @@ document.getElementById("dark-button").addEventListener("click", function() {
   darkMode = !darkMode;
 });
 
-if (darkMode) {
-  document.getElementById("dark-button").click();
-}
-
 // move the main div down to adjust for tab size changing
 function moveMain() {
   document.getElementById("main").style.marginTop = document.getElementsByClassName("tab")[0].offsetHeight + "px";
 }
-new ResizeObserver(moveMain).observe(document.getElementsByClassName("tab")[0]);
-moveMain();
 
-// hide or show email info div
-document.getElementById("hide-button").addEventListener("click", () => {
-  document.getElementById("email-info").classList.toggle("hidden");
-  document.getElementById("hide-button").innerHTML = document.getElementById("hide-button").innerHTML === "Hide Intro/Preview/Errata" ? "Show Intro/Preview/Errata" : "Hide Intro/Preview/Errata";
-});
+// startup
+window.onload = () => {
+  fillAll();
+  setTimeout(() => {
+    document.getElementById("show-html-button").addEventListener("click", () => {
+      document.getElementsByClassName("rainbow-show")[0].classList.toggle("hidden");
+      toggleThreeSplit();
+      document.getElementById("show-html-button").innerHTML = document.getElementById("show-html-button").innerHTML === "Hide HTML Code" ? "Show HTML Code" : "Hide HTML Code";
+    });
+
+    // hide or show mjml code div
+    document.getElementById("show-mjml-button").addEventListener("click", () => {
+      document.getElementsByClassName("rainbow-show")[2].classList.toggle("hidden");
+      toggleThreeSplit();
+      document.getElementById("show-mjml-button").innerHTML = document.getElementById("show-mjml-button").innerHTML === "Hide MJML Code" ? "Show MJML Code" : "Hide MJML Code";
+    });
+    document.getElementById("show-html-button").click();
+    document.getElementById("show-mjml-button").click();
+  }, 200);
+
+  // FIXME: not being called for some reason
+  for (var fieldId in articleBindings) {
+    document.getElementById(fieldId).addEventListener("input", (event) => {
+      updateNewsletterArticleField(event.srcElement.id, findArticleById(theArticleId));
+    });
+  }
+  for (var infoId in infoBindings) {
+    document.getElementById(infoId).addEventListener("input", (event) => {
+      updateNewsletterInfoField(event.srcElement.id);
+    });
+  }
+
+  if (darkMode) {
+    document.getElementById("dark-button").click();
+  }
+
+  new ResizeObserver(moveMain).observe(document.getElementsByClassName("tab")[0]);
+  moveMain();
+};

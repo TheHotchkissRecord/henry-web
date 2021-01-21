@@ -14,7 +14,7 @@ module.exports = {
     "quotes": ["error", "double"],
     "semi": ["error", "always"],
     "no-constant-condition": ["error", { "checkLoops": false }],
-    
+
     // override default options for rules from base configurations
     "no-cond-assign": ["error", "always"],
 
@@ -23,6 +23,5 @@ module.exports = {
 
     // disable no-undef and no-unused-vars
     "no-undef": "off",
-    "no-unused-vars": "off"
   }
 };
