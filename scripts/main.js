@@ -330,11 +330,14 @@ document.getElementById("refresh-html-button").addEventListener("click", async f
 
 // copy html preview
 document.getElementById("copy-preview-button").addEventListener("click", () => {
-  var range = document.createRange();
-  range.selectNode(document.getElementById("html-preview-box"));
-  window.getSelection().removeAllRanges();
-  window.getSelection().addRange(range);
+  // from https://stackoverflow.com/questions/23934656/javascript-copy-rich-text-contents-to-clipboard
+  function listener(e) {
+    e.clipboardData.setData("text/html", document.getElementById("html-preview-box").innerHTML);
+    e.preventDefault();
+  }
+  document.addEventListener("copy", listener);
   document.execCommand("copy");
+  document.removeEventListener("copy", listener);
 });
 
 // download html code
