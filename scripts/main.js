@@ -404,6 +404,26 @@ document.getElementById("hide-button").addEventListener("click", () => {
   document.getElementById("hide-button").innerHTML = document.getElementById("hide-button").innerHTML === "Hide Intro/Preview/Errata" ? "Show Intro/Preview/Errata" : "Hide Intro/Preview/Errata";
 });
 
+// hide or show html code div
+document.getElementById("show-html-button").addEventListener("click", () => {
+  document.getElementsByClassName("rainbow-show")[0].classList.toggle("hidden");
+  toggleThreeSplit();
+  document.getElementById("show-html-button").innerHTML = document.getElementById("show-html-button").innerHTML === "Hide HTML Code" ? "Show HTML Code" : "Hide HTML Code";
+});
+
+// hide or show mjml code div
+document.getElementById("show-mjml-button").addEventListener("click", () => {
+  document.getElementsByClassName("rainbow-show")[2].classList.toggle("hidden");
+  toggleThreeSplit();
+  document.getElementById("show-mjml-button").innerHTML = document.getElementById("show-mjml-button").innerHTML === "Hide MJML Code" ? "Show MJML Code" : "Hide MJML Code";
+});
+
+// HACK: wait for Rainbow to load before clicking the button
+setTimeout(() => {
+  document.getElementById("show-html-button").click();
+  document.getElementById("show-mjml-button").click();
+}, 200);
+
 // dark mode
 var darkMode = window.matchMedia("(prefers-color-scheme: dark)").matches;
 
@@ -417,47 +437,28 @@ document.getElementById("dark-button").addEventListener("click", function() {
   darkMode = !darkMode;
 });
 
+if (darkMode) {
+  document.getElementById("dark-button").click();
+}
+
 // move the main div down to adjust for tab size changing
 function moveMain() {
   document.getElementById("main").style.marginTop = document.getElementsByClassName("tab")[0].offsetHeight + "px";
 }
+new ResizeObserver(moveMain).observe(document.getElementsByClassName("tab")[0]);
+moveMain();
 
 // startup
-window.onload = () => {
-  fillAll();
-  setTimeout(() => {
-    document.getElementById("show-html-button").addEventListener("click", () => {
-      document.getElementsByClassName("rainbow-show")[0].classList.toggle("hidden");
-      toggleThreeSplit();
-      document.getElementById("show-html-button").innerHTML = document.getElementById("show-html-button").innerHTML === "Hide HTML Code" ? "Show HTML Code" : "Hide HTML Code";
-    });
+fillAll();
 
-    // hide or show mjml code div
-    document.getElementById("show-mjml-button").addEventListener("click", () => {
-      document.getElementsByClassName("rainbow-show")[2].classList.toggle("hidden");
-      toggleThreeSplit();
-      document.getElementById("show-mjml-button").innerHTML = document.getElementById("show-mjml-button").innerHTML === "Hide MJML Code" ? "Show MJML Code" : "Hide MJML Code";
-    });
-    document.getElementById("show-html-button").click();
-    document.getElementById("show-mjml-button").click();
-  }, 200);
-
-  // FIXME: not being called for some reason
-  for (var fieldId in articleBindings) {
-    document.getElementById(fieldId).addEventListener("input", (event) => {
-      updateNewsletterArticleField(event.srcElement.id, findArticleById(theArticleId));
-    });
-  }
-  for (var infoId in infoBindings) {
-    document.getElementById(infoId).addEventListener("input", (event) => {
-      updateNewsletterInfoField(event.srcElement.id);
-    });
-  }
-
-  if (darkMode) {
-    document.getElementById("dark-button").click();
-  }
-
-  new ResizeObserver(moveMain).observe(document.getElementsByClassName("tab")[0]);
-  moveMain();
-};
+// FIXME: not being called for some reason
+for (var fieldId in articleBindings) {
+  document.getElementById(fieldId).addEventListener("input", (event) => {
+    updateNewsletterArticleField(event.srcElement.id, findArticleById(theArticleId));
+  });
+}
+for (var infoId in infoBindings) {
+  document.getElementById(infoId).addEventListener("input", (event) => {
+    updateNewsletterInfoField(event.srcElement.id);
+  });
+}
