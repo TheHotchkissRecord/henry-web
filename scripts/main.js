@@ -49,7 +49,7 @@ var infoBindings = {
 // FIXME: do we actually need this function? sequential search
 function findArticleById(theId) {
   for (var i = 0; i < theNewsletter.articleOrder.length; i++) {
-    if (theNewsletter.articles[i].id === theId) {
+    if (theNewsletter.articles[i].id === Number(theId)) {
       return i;
     }
   }
@@ -67,10 +67,12 @@ function listArticles() {
     articleP.id = theArticle.id;
     articleP.appendChild(document.createTextNode((i + 1) + ". " + theArticle.title));
 
-    articleP.addEventListener("click", function (event){
+    articleP.addEventListener("click", function (event) {
       theArticleId = event.target.id;
       console.log(theArticleId);
       fillFields();
+      fillImagePreview();
+      fillInvalidLink();
     });
 
     listBox.appendChild(articleP);
@@ -86,11 +88,12 @@ function fillFields() {
   }
   document.getElementById("article-id").innerHTML = theArticleId;
   document.getElementById("now-editing").innerHTML = "Now editing: <b>" + theArticle.title + "</b> in <b>" + theNewsletter.yyyymmdd() + "</b>";
+}
 
-  // show/hide image preview and invalid link warnings
+// show/hide image preview and invalid image link warning
+function fillImagePreview() {
+  var theArticle = theNewsletter.articles[findArticleById(theArticleId)];
   var invalidThumbnail = document.getElementById("invalid-thumbnail");
-  var invalidLink = document.getElementById("invalid-link");
-
   invalidThumbnail.classList.add("hidden");
   if (isUrl(theArticle.thumbnailLink)) {
     document.getElementById("image-preview-box").style.display = "block";
@@ -101,6 +104,11 @@ function fillFields() {
       invalidThumbnail.classList.remove("hidden");
     }
   }
+}
+
+function fillInvalidLink() {
+  var theArticle = theNewsletter.articles[findArticleById(theArticleId)];
+  var invalidLink = document.getElementById("invalid-link");
   if (isUrl(theArticle.articleLink) || theArticle.articleLink === "") {
     invalidLink.classList.add("hidden");
   } else {
@@ -137,6 +145,23 @@ function updateNewsletter() {
   updateCode();
 }
 
+for (var fieldId in articleBindings) {
+  document.getElementById(fieldId).addEventListener("input", (event) => {
+    updateNewsletterArticleField(event.srcElement.id, findArticleById(theArticleId));
+  });
+}
+for (var infoId in infoBindings) {
+  document.getElementById(infoId).addEventListener("input", (event) => {
+    updateNewsletterInfoField(event.srcElement.id);
+  });
+}
+document.getElementById("article-link").addEventListener("input", () => {
+  fillInvalidLink();
+});
+document.getElementById("thumbnail-link").addEventListener("input", () => {
+  fillImagePreview();
+});
+
 // update code box
 function updateCode() {
   Rainbow.color(sanitize(theNewsletter.toMJML()), "html", function(highlightedCode) {
@@ -149,6 +174,8 @@ function fillAll() {
   listArticles();
   fillFields();
   fillInfo();
+  fillImagePreview();
+  fillInvalidLink();
   updateCode();
 }
 
@@ -156,8 +183,9 @@ function fillAll() {
 document.getElementById("add-button").addEventListener("click", function () {
   art = new Article();
   theNewsletter.add(art);
-  fillAll();
+  fillAll(); // FIXME: should be listArticles?
 });
+
 document.getElementById("delete-button").addEventListener("click", function () {
   if (!confirm("Delete this article? This action cannot be undone.")) {
     return;
@@ -176,6 +204,8 @@ document.getElementById("previous-button").addEventListener("click", function ()
   if (previousPos >= 0) {
     theArticleId = theNewsletter.articleOrder[previousPos];
     fillFields();
+    fillImagePreview();
+    fillInvalidLink();
   }
 });
 document.getElementById("next-button").addEventListener("click", function () {
@@ -183,6 +213,8 @@ document.getElementById("next-button").addEventListener("click", function () {
   if (nextPos < theNewsletter.articleOrder.length) {
     theArticleId = theNewsletter.articleOrder[nextPos];
     fillFields();
+    fillImagePreview();
+    fillInvalidLink();
   }
 });
 
@@ -190,7 +222,7 @@ document.getElementById("next-button").addEventListener("click", function () {
 document.getElementById("auto-fill-button").addEventListener("click", async function() {
   var art = await scrape(document.getElementById("article-link").value);
 
-  document.getElementById("title").value = art.title;
+  document.getElementById("title").value = art.title; // FIXME: shorten with for statement
   document.getElementById("byline").value = art.byline;
   document.getElementById("content-preview").value = art.contentPreview;
   document.getElementById("thumbnail-caption").value = art.thumbnailCaption;
@@ -450,15 +482,3 @@ moveMain();
 
 // startup
 fillAll();
-
-// FIXME: not being called for some reason
-for (var fieldId in articleBindings) {
-  document.getElementById(fieldId).addEventListener("input", (event) => {
-    updateNewsletterArticleField(event.srcElement.id, findArticleById(theArticleId));
-  });
-}
-for (var infoId in infoBindings) {
-  document.getElementById(infoId).addEventListener("input", (event) => {
-    updateNewsletterInfoField(event.srcElement.id);
-  });
-}
