@@ -34,7 +34,7 @@ const ARTICLE_TEXT = `<!-- Start of an article preview -->
 const MAIN_TEXT = `<mjml>
   <mj-head>
     <!-- Title and Date -->
-    <mj-title>Off the Record - %Month %DD, %YYYY</mj-title>
+    <mj-title>The Hotchkiss Record: %Weekday, %Month %DD, %YYYY</mj-title>
     <!-- Description -->
     <mj-preview>%Description</mj-preview>
     <mj-attributes>
