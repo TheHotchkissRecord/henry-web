@@ -155,14 +155,14 @@ document.getElementById("delete-button").addEventListener("click", function () {
 });
 
 document.getElementById("previous-button").addEventListener("click", function () {
-  previousPos = theNewsletter.articleOrder.indexOf(theArticleId) - 1;
+  previousPos = theNewsletter.articleOrder.indexOf(Number(theArticleId)) - 1;
   if (previousPos >= 0) {
     theArticleId = theNewsletter.articleOrder[previousPos];
     fillFields();
   }
 });
 document.getElementById("next-button").addEventListener("click", function () {
-  nextPos = theNewsletter.articleOrder.indexOf(theArticleId) + 1;
+  nextPos = theNewsletter.articleOrder.indexOf(Number(theArticleId)) + 1;
   if (nextPos < theNewsletter.articleOrder.length) {
     theArticleId = theNewsletter.articleOrder[nextPos];
     fillFields();
