@@ -93,7 +93,7 @@ function fillFields() {
 }
 
 // update newsletter fields
-function updateNewsletter () {
+function updateNewsletter() {
   var articlePos = findArticleById(theArticleId);
   theNewsletter.articles[articlePos].title = document.getElementById("title").value;
   theNewsletter.articles[articlePos].articleLink = document.getElementById("article-link").value;
@@ -234,8 +234,9 @@ document.getElementById("download-mjml-button").addEventListener("click", functi
 
 document.getElementById("date-button").addEventListener("click", function() {
   var year, month, day;
+  var today = new Date();
   while (true) {
-    year = prompt("Enter the year (yyyy):", "2020");
+    year = prompt("Enter the year (yyyy):", today.getFullYear().toString());
     if (year === null) {
       return;
     }
@@ -244,7 +245,7 @@ document.getElementById("date-button").addEventListener("click", function() {
     }
   }
   while (true) {
-    month = prompt("Enter the month (mm):");
+    month = prompt("Enter the month (mm):", (today.getMonth() + 1).toString().padStart(2, "0"));
     if (month === null) {
       return;
     }
@@ -253,7 +254,7 @@ document.getElementById("date-button").addEventListener("click", function() {
     }
   }
   while (true) {
-    day = prompt("Enter the day (dd):");
+    day = prompt("Enter the day (dd):", today.getDate().toString().padStart(2, "0"));
     if (day === null) {
       return;
     }
@@ -281,8 +282,8 @@ document.getElementById("new-news-button").addEventListener("click", function() 
       break;
     }
   }
-  for (var i = 0; i < numArticles; i++) {
-    addArticle();
+  for (var i = 0; i < Number(numArticles); i++) {
+    document.getElementById("add-button").click();
   }
 });
 
