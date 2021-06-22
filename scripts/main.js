@@ -90,6 +90,8 @@ function fillFields() {
   } else {
     document.getElementById("invalid-link").classList.add("hidden");
   }
+  listArticles();
+  document.getElementById(theArticleId).style.fontWeight = "bolder";
 }
 
 // update newsletter fields
@@ -130,7 +132,7 @@ function updateCode() {
 
 // fill and update all the fields
 function fillAll() {
-  listArticles();
+  //listArticles(); we do this in fill fields now
   fillFields();
   updateCode();
 }

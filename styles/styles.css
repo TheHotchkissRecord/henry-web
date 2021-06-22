@@ -123,8 +123,13 @@ pre {
 }
 
 #articles-list p:hover {
-  text-decoration: underline;
+  outline: solid 0.1em;
   cursor: pointer;
+  transition: 0s;
+}
+
+#articles-list p {
+  padding: 0.2em;
 }
 
 #one, #two {
