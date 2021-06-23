@@ -19,12 +19,10 @@
 
 <body>
   <div class="tab">
-    <a href="https://github.com/TheHotchkissRecord/henry-web" target="_blank"><button>Henry</button></a>
-    <a><button id="now-editing">Now editing:</button></a>
-    <a><button id="new-news-button">New Newsletter</button></a>
-    <a><button id="open-button">Open Newsletter JSON</button></a>
-    <a><button id="export-button">Export Newsletter JSON</button></a>
-    <a><button id="dark-button" style="float: right;">Dark/Light Mode</button></a>
+    <button id="now-editing">Now editing:</button>
+    <button id="new-news-button">New Newsletter</button>
+    <button id="open-button">Open Newsletter JSON</button>
+    <button id="export-button">Export Newsletter JSON</button>
    </div>
 
   <div id="main">
@@ -46,6 +44,7 @@
     </div>
 
     <div class="split" id="two">
+      <section>
       <button id="previous-button">Previous Article</button>
       <button id="next-button">Next Article</button><br>
 
@@ -73,7 +72,18 @@
       </div>
 
       <br><button id="delete-button">Delete Article</button><br>
-      Article ID: <span id="article-id"></span>
+      Article ID: <span id="article-id"></span><br>
+      </section>
+
+      <footer>
+      <a id="clear-localstorage-button">Clear localStorage</a> •
+      <a id="disable-autofill-button">Toggle Auto-fill</a> •
+      <a id="dark-button">Dark/Light Mode</a>
+      <br>
+      <a href="https://github.com/TheHotchkissRecord/henry-web" target="_blank">About Henry</a> •
+      Made with &lt;3 by <a href="https://github.com/reeceyang" target="_blank">Reece</a>
+      <br>
+      </footer>
     </div>
 
     <div class="split" id="three">

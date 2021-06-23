@@ -1,5 +1,21 @@
-Split(["#one", "#two", "#three"]);
+var sizes = localStorage.getItem("split-sizes");
+if (sizes) {
+  sizes = JSON.parse(sizes);
+} else {
+  sizes = [33, 33, 33]; // default sizes
+}
+Split(["#one", "#two", "#three"], {
+  sizes: sizes,
+  onDragEnd: function (sizes) {
+    localStorage.setItem("split-sizes", JSON.stringify(sizes));
+  },
+});
 var threeSplit = Split(["#top", "#mid", "#bot"], {direction: "vertical"});
+
+document.getElementById("clear-localstorage-button").addEventListener("click", () => {
+  localStorage.clear();
+  window.location = "";
+});
 
 // default newsletter onload
 var news = new Newsletter();
@@ -425,6 +441,7 @@ if (darkMode) {
 // move the main div down to adjust for tab size changing
 function moveMain() {
   document.getElementById("main").style.marginTop = document.getElementsByClassName("tab")[0].offsetHeight + "px";
+  document.getElementById("two").style.height = (window.innerHeight - document.getElementsByClassName("tab")[0].offsetHeight) + "px";
 }
 new ResizeObserver(moveMain).observe(document.getElementsByClassName("tab")[0]);
 moveMain();

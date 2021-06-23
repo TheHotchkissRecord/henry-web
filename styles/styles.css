@@ -31,7 +31,21 @@ body {
 }
 
 a {
-  color: #457b9d;
+  color: inherit;
+  text-decoration: none;
+  padding: 0.1em;
+  margin-bottom: 0.2em;
+}
+
+a:hover {
+  cursor: pointer;
+  outline: solid 1px;
+  transition: 0s;
+}
+
+a:active {
+  background-color: var(--text);
+  transition: 0.25s;
 }
 
 .hidden {
@@ -49,6 +63,11 @@ a {
 #three, #mid, #top, #bot {
   display: flex;
   flex-direction: column;
+}
+
+#two {
+  display: grid;
+  grid-template-rows: 1fr auto;
 }
 
 #mid, #bot {
@@ -168,4 +187,8 @@ button:hover {
 
 #next-button {
   float: right;
+}
+
+footer {
+  text-align: center;
 }
