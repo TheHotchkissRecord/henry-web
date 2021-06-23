@@ -1,3 +1,4 @@
+/* colors for dark/light mode */
 :root {
   --background: #f8f8f8;
   --background-darker: #eee;
@@ -5,7 +6,6 @@
   --hover: #ddd;
   --text: black;
 }
-
 .dark {
   --background: #242424;
   --background-darker: #363636;
@@ -14,101 +14,108 @@
   --border: #303030;
 }
 
+
+/* make everything smooth */
 * {
   transition: 0.25s;
 }
 
+
+/* main fonts, colors, etc. */
 body {
   background-color: var(--background);
   color: var(--text);
   margin: 0;
   overflow: hidden;
 }
-
 .tab, #one, #two, #three {
   font-family: 'Source Serif Pro', serif;
   font-size: 12pt;
 }
 
+
+/* styling for links in the footer */
 a {
   color: inherit;
   text-decoration: none;
   padding: 0.1em;
   margin-bottom: 0.2em;
 }
-
 a:hover {
   cursor: pointer;
   outline: solid 1px;
   transition: 0s;
 }
-
 a:active {
   background-color: var(--text);
   transition: 0.25s;
 }
 
+
+/* to hide things */
 .hidden {
   display: none;
 }
 
+
+/* style for invalid link warnings */
 .invalid {
   color: red;
 }
 
+
+/* set up page layout */
 #one, #two, #three:not(#code-box) {
   padding: 0.5em;
 }
-
 #three, #mid, #top, #bot {
   display: flex;
   flex-direction: column;
 }
-
 #two {
   display: grid;
   grid-template-rows: 1fr auto;
 }
-
 #mid, #bot {
   padding-top: 0.5em;
 }
-
 #html-preview-box {
   overflow: auto;
 }
+#one, #two {
+  overflow-y: auto;
+}
 
+
+/* css for split.js */
 .gutter {
   background-color: var(--background-darker);
 
   background-repeat: no-repeat;
   background-position: 50%;
 }
-
 .gutter.gutter-horizontal {
   background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAUAAAAeCAYAAADkftS9AAAAIklEQVQoU2M4c+bMfxAGAgYYmwGrIIiDjrELjpo5aiZeMwF+yNnOs5KSvgAAAABJRU5ErkJggg==');
   cursor: col-resize;
 }
-
 .gutter.gutter-vertical {
   background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAB4AAAAFAQMAAABo7865AAAABlBMVEVHcEzMzMzyAv2sAAAAAXRSTlMAQObYZgAAABBJREFUeF5jOAMEEAIEEFwAn3kMwcB6I2AAAAAASUVORK5CYII=');
   cursor: row-resize;
 }
-
 .split {
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box;
   transition: 0.1s;
 }
-
 .split,
 .gutter.gutter-horizontal {
   float: left;
   height: 97vh;
 }
 
-/* Style the tab */
+
+/* Style the top menu */
 .tab {
   overflow: hidden;
   position: fixed;
@@ -117,9 +124,7 @@ a:active {
   border: 1px solid var(--border);
   background-color: var(--background-darker);
 }
-
-/* Style the buttons that are used to open the tab content */
-.tab button {
+.tab button { /* Style the buttons in the menu */
   background-color: inherit;
   color: var(--text);
   float: left;
@@ -128,12 +133,12 @@ a:active {
   cursor: pointer;
   padding: 1em 1em;
 }
-
-/* Change background color of buttons on hover */
 .tab button:hover {
-  background-color: var(--hover);
+  background-color: var(--hover); /* Change background color of buttons on hover */
 }
 
+
+/* style code boxes */
 pre {
   white-space: pre-wrap;
   overflow: auto;
@@ -141,24 +146,22 @@ pre {
   height: 89vh;
 }
 
+
+/* css for articles list */
 #articles-list p:hover {
   outline: solid 0.1em;
   cursor: pointer;
   transition: 0s;
 }
-
 #articles-list p {
   padding: 0.2em;
 }
 
-#one, #two {
-  overflow-y: auto;
-}
 
+/* style input elements */
 input, textarea {
   width: 75%;
 }
-
 input, textarea, button {
   background-color: var(--background-darker);
   border: hidden;
@@ -167,28 +170,28 @@ input, textarea, button {
   outline: none;
   font: inherit;
 }
-
 input:focus, textarea:focus {
   background-color: var(--hover);
 }
-
 textarea {
   height: 5em;
 }
-
 button:hover {
   background-color: var(--hover);
   cursor: pointer;
 }
-
 #main button:active {
   transform: translateY(0.2em);
 }
 
+
+/* make next article button float to the right */
 #next-button {
   float: right;
 }
 
+
+/* center the footer */
 footer {
   text-align: center;
 }
