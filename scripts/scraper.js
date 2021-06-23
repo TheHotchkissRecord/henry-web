@@ -12,7 +12,8 @@ async function scrape(url) {
   var metaLine = articleHtml.getElementById("storymeta").childNodes[0].innerHTML.trim();
   art.byline = unsanitize(metaLine.substring(0, metaLine.indexOf("<s")));
 
-  art.contentPreview = unsanitize(innermostNode(articleHtml.getElementsByClassName("storycontent")[0].childNodes[0]).innerHTML);
+  //art.contentPreview = unsanitize(innermostNode(articleHtml.getElementsByClassName("storycontent")[0].childNodes[0]).innerHTML);
+  art.contentPreview = unsanitize(articleHtml.getElementsByClassName("storycontent")[0].childNodes[0].innerHTML);
 
   // only get the photo if there is a credit
   if (articleHtml.getElementsByClassName("photocredit").length != 0) {
