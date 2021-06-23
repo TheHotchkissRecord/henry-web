@@ -10,7 +10,7 @@ async function scrape(url) {
   art.title = unsanitize(articleHtml.getElementById("storyheadline").innerHTML);
 
   var metaLine = articleHtml.getElementById("storymeta").childNodes[0].innerHTML.trim();
-  art.byline = unsanitize(metaLine.substring(0, metaLine.indexOf("<")));
+  art.byline = unsanitize(metaLine.substring(0, metaLine.indexOf("<s")));
 
   art.contentPreview = unsanitize(innermostNode(articleHtml.getElementsByClassName("storycontent")[0].childNodes[0]).innerHTML);
 
