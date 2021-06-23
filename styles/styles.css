@@ -180,8 +180,13 @@ button:hover {
   background-color: var(--hover);
   cursor: pointer;
 }
-#main button:active {
+#main button:active:not(:disabled) {
   transform: translateY(0.2em);
+}
+button:disabled {
+  background-color: inherit;
+  color: var(--hover);
+  cursor: inherit;
 }
 
 

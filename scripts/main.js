@@ -374,6 +374,10 @@ document.getElementById("copy-html-button").addEventListener("click", function()
   textArea.parentNode.removeChild(textArea);
 });
 
+document.getElementById("disable-autofill-button").addEventListener("click", () => {
+  document.getElementById("auto-fill-button").disabled = !document.getElementById("auto-fill-button").disabled;
+});
+
 // resize the boxes correctly
 function toggleThreeSplit() {
   var hiddenBoxes = [document.getElementById("html-preview-box").classList[0] === "hidden",
