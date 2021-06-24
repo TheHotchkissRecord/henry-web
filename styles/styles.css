@@ -35,18 +35,18 @@ body {
 
 
 /* styling for links in the footer */
-a {
+#two a {
   color: inherit;
   text-decoration: none;
   padding: 0.1em;
   margin-bottom: 0.2em;
 }
-a:hover {
+#two a:hover {
   cursor: pointer;
   outline: solid 1px;
   transition: 0s;
 }
-a:active {
+#two a:active {
   background-color: var(--text);
   transition: 0.25s;
 }
@@ -197,6 +197,6 @@ button:disabled {
 
 
 /* center the footer */
-footer {
+#two footer {
   text-align: center;
 }
