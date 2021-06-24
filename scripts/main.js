@@ -420,26 +420,37 @@ document.getElementById("show-mjml-button").addEventListener("click", () => {
 });
 
 // startup
-fillAll();
+document.getElementById("refresh-html-button").click();
 setTimeout(() => {
-  document.getElementById("show-html-button").click();
-  document.getElementById("show-mjml-button").click();
-}, 200);
+  // document.getElementById("show-html-button").click();
+  // document.getElementById("show-mjml-button").click();
+  fillAll();
+}, 400);
+
 // dark mode
-darkMode = window.matchMedia("(prefers-color-scheme: dark)").matches;
+var darkMode = localStorage.getItem("dark-mode");
+if (darkMode !== null) {
+  darkMode = (darkMode === "true");
+} else {
+  darkMode = window.matchMedia("(prefers-color-scheme: dark)").matches;
+}
 
 document.getElementById("dark-button").addEventListener("click", function() {
   document.body.classList.toggle("dark");
+  darkMode = !darkMode;
   if (darkMode) {
     document.getElementById("color-scheme").href = "styles/tomorrow-twilight.css";
   } else {
     document.getElementById("color-scheme").href = "styles/tomorrow-day.css";
   }
-  darkMode = !darkMode;
+  localStorage.setItem("dark-mode", darkMode.toString());
 });
 
 if (darkMode) {
-  document.getElementById("dark-button").click();
+  document.getElementById("color-scheme").href = "styles/tomorrow-twilight.css";
+  document.body.classList.toggle("dark");
+} else {
+  document.getElementById("color-scheme").href = "styles/tomorrow-day.css";
 }
 
 // move the main div down to adjust for tab size changing
